@@ -8,7 +8,7 @@ SCREEN_HEIGHT = 750
 
 print(sys.executable)
 
-def dist(x, y):
+def distance(x, y):
     return sqrt(sum([(x[i]-y[i])**2 for i in range(len(x))]))
          
 def average(x):
@@ -17,6 +17,8 @@ def average(x):
 def calculateRadius(nodes, degree, dist):
     if dist == "Square":
         return sqrt(degree / (PI * nodes))
+    if dist == "Disk":
+        return sqrt((degree + 0.0)/nodes)
     return -1
 
 def generatePoints(dist, nodes):
@@ -24,6 +26,15 @@ def generatePoints(dist, nodes):
         ls = []
         for i in range(nodes):
             ls.append([random(1), random(1)])
+        return ls
+    if dist == "Disk":
+        ls = []
+        num = 0
+        while(num < nodes):
+            item = [random(1), random(1)]
+            if distance(item, [0.5,0.5]) <= 0.5:
+                ls.append(item)
+                num = num + 1
         return ls
     return []
 
@@ -36,7 +47,7 @@ def findEdges(nodes, rad, alg="Brute"):
         for idx, x in enumerate(nodes):
             e = []
             for idy, y in enumerate(nodes):
-                if dist(x, y) <= rad and idx != idy:
+                if distance(x, y) <= rad and idx != idy:
                     e.append(idy)
             edges.append(e)
 
@@ -79,7 +90,7 @@ def findEdges(nodes, rad, alg="Brute"):
                     for idy in yrange:
                         for idx in xrange:
                             for itemB in buckets[idy][idx]:
-                                if dist(nodes[itemA], nodes[itemB]) <= rad and itemA != itemB:
+                                if distance(nodes[itemA], nodes[itemB]) <= rad and itemA != itemB:
                                     edges[itemA].append(itemB)
 
     return edges
@@ -160,9 +171,9 @@ def drawGraph(points, edges, colors):
 
 def main():
 
-    NUM_NODES = 64000
-    AVG_DEGREE = 128
-    DISTRIBUTION = "Square"
+    NUM_NODES = 1000
+    AVG_DEGREE = 32
+    DISTRIBUTION = "Disk"
 
     radius = calculateRadius(NUM_NODES, AVG_DEGREE, DISTRIBUTION)
 
@@ -182,7 +193,7 @@ def main():
 
     print("Generated Coloring")
     
-    #drawGraph(points, edges, colors)
+    drawGraph(points, edges, colors)
 
 
 def setup():
