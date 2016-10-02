@@ -6,11 +6,22 @@ import sys
 SCREEN_WIDTH = 750
 SCREEN_HEIGHT = 750
 
-def argmax(ls):
-    m = max(ls)
+def removeMax(input):
+    
+    m = max(input)
     ret = []
-    for x in range(len(ls)):
-        if(ls[x] == m):
+    
+    for item in input:
+        if item != m:
+            ret.append(item)
+            
+    return ret
+
+def argmax(input):
+    m = max(input)
+    ret = []
+    for x in range(len(input)):
+        if(input[x] == m):
             ret.append(x)
     return ret
 
@@ -19,7 +30,10 @@ def topN(ls, n=2):
     ret = []
     while(len(ret) < n):
         ret += argmax(ls)
-        ls = ls.remove(max(ls))
+        print(ls)
+        print("Gonna Remove")
+        ls = removeMax(ls)
+        print(ls)
         
     return ret[0:n]
     
