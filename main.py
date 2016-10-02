@@ -85,8 +85,6 @@ def smallestLastOrdering(edges, alg="Brute"):
 
     j = len(edges)
 
-    print(buckets[min(degrees)])
-
     while(j > 0):
 
         i = 0
@@ -134,8 +132,5 @@ def main():
     print("Average edge count: ", np.mean([len(x) for x in edges]))
 
     order = smallestLastOrdering(edges)
-    print(len(order))
-
-    print(order[-10:])
 
 main()
