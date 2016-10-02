@@ -11,7 +11,10 @@ def generatePoints(dist, nodes):
         return np.random.rand(nodes, 2)
     return []
 
-def findEdges(nodes, rad, alg="Brute", num_buckets = 10):
+def findEdges(nodes, rad, alg="Brute"):
+
+    num_buckets = int(1/rad) - 1
+
     if alg == "Brute":
         edges = []
         for idx, x in enumerate(nodes):
@@ -68,7 +71,7 @@ def findEdges(nodes, rad, alg="Brute", num_buckets = 10):
 
 def main():
 
-    NUM_NODES = 1000
+    NUM_NODES = 5000
     AVG_DEGREE = 32
     DISTRIBUTION = "Square"
 
