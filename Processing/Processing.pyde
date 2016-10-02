@@ -34,7 +34,9 @@ def calculateRadius(nodes, degree, dist):
     if dist == "Square":
         return sqrt(degree / (PI * nodes))
     if dist == "Disk":
-        return sqrt((degree + 0.0)/nodes)
+        return sqrt((degree + 0.0)/nodes)/2
+    if dist == "Sphere":
+        return sqrt((degree + 0.0)/nodes)/2
     return -1
 
 def generatePoints(dist, nodes):
@@ -52,11 +54,30 @@ def generatePoints(dist, nodes):
                 ls.append(item)
                 num = num + 1
         return ls
+    if dist == "Sphere":
+        
+        ls = []
+        num = 0
+        while(num < nodes):
+            item = [random(1), random(1), random(1)]
+            dst = distance(item, [0,0,0]) 
+                
+            if dst <= 1:
+                
+                for i in range(len(item)):
+                    item[i] = item[i] / dst
+                
+                ls.append(item)
+                num = num + 1
+                
+        return ls
     return []
 
-def findEdges(nodes, rad, alg="Brute"):
+def findEdges(nodes, rad, alg="Brute", mode="2D"):
 
     num_buckets = int(1/rad) - 1
+    if(mode == "Sphere"):
+        num_buckets = 4*num_buckets
 
     if alg == "Brute":
         edges = []
@@ -185,6 +206,9 @@ def drawGraph(points, edges, colors):
         for j in edges[i]:
             line(points[i][0]*SCREEN_WIDTH, points[i][1]*SCREEN_HEIGHT, points[j][0]*SCREEN_WIDTH, points[j][1]*SCREEN_HEIGHT)
 
+def drawGraph3D(points, edges, colors):
+    1
+
 def drawGraphWithBackbone(points, edges, colors, backbone):
     
     strokeWeight(0.1)
@@ -281,15 +305,16 @@ def main():
 
     NUM_NODES = 1000
     AVG_DEGREE = 32
-    DISTRIBUTION = "Square"
+    DISTRIBUTION = "Sphere"
 
     radius = calculateRadius(NUM_NODES, AVG_DEGREE, DISTRIBUTION)
 
     points = generatePoints(DISTRIBUTION, NUM_NODES)
 
     print("Generated Points")
+    #print(points)
 
-    edges = findEdges(points, radius, alg="Buckets")
+    edges = findEdges(points, radius, alg="Buckets", mode=DISTRIBUTION)
 
     print("Average edge count: ", average([len(x) for x in edges]))
 
@@ -315,13 +340,15 @@ def main():
     
     print("Calculated Backbone Coverages")
 
+    print(coverages)
     topBackbones = [backbones[i] for i in(topN(coverages))]
     
     print("Found Top-2 Backbones")
     
-    drawGraph(points, edges, colors)
+    #drawGraph(points, edges, colors)
 
 def setup():
+    
     size(SCREEN_WIDTH, SCREEN_HEIGHT)
     background(255)
     frameRate(1)
