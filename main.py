@@ -20,16 +20,50 @@ def findEdges(nodes, rad, alg="Brute", num_buckets = 10):
                 if np.sqrt(np.sum((x-y)**2)) <= rad and idx != idy:
                     e.append(idy)
             edges.append(e)
-        return edges
 
     if alg == "Buckets":
 
+        edges = []
+        for i in range(len(nodes)):
+            edges.append([])
+
         buckets = []
-        for i in range(10):
-            buckets.append([])
+        for i in range(num_buckets):
+            l = []
+            for j in range(num_buckets):
+                l.append([])
+            buckets.append(l)
 
-        for idx, x in enumerate(nodes):
+        for x in range(len(nodes)):
+            buckets[int(nodes[x][0]*num_buckets)][int(nodes[x][1]*num_buckets)].append(x)
 
+        for y in range(num_buckets):
+
+            yrange = []
+            if(y == 0):
+                yrange = [0,1]
+            elif(y == num_buckets - 1):
+                yrange = [y-1, y]
+            else:
+                yrange = [y-1, y, y+1]
+
+            for x in range(num_buckets):
+                xrange = []
+                if(x == 0):
+                    xrange = [0,1]
+                elif(x == num_buckets - 1):
+                    xrange = [x-1, x]
+                else:
+                    xrange = [x-1, x, x+1]
+
+                for itemA in buckets[y][x]:
+                    for idy in yrange:
+                        for idx in xrange:
+                            for itemB in buckets[idy][idx]:
+                                if np.sqrt(np.sum((nodes[itemA]-nodes[itemB])**2)) <= rad and itemA != itemB:
+                                    edges[itemA].append(itemB)
+
+    return edges
 
 
 def main():
@@ -44,7 +78,7 @@ def main():
 
     print("Generated Points")
 
-    edges = findEdges(points, radius)
+    edges = findEdges(points, radius, alg="Buckets")
 
     print("Average edge count: ")
     print(np.mean([len(x) for x in edges]))
