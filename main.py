@@ -115,6 +115,21 @@ def smallestLastOrdering(edges, alg="Brute"):
 
     return vertices[::-1]
 
+def generateColoring(order, edges):
+
+    colors = []
+    for i in range(len(edges)):
+        colors.append(0)
+
+    for v in order:
+        color = 0
+        adjcolors = [colors[x] for x in edges[v]]
+        while(color in adjcolors):
+            color = color + 1
+        colors[v] = color
+
+    return colors
+
 def main():
 
     NUM_NODES = 1000
@@ -132,5 +147,13 @@ def main():
     print("Average edge count: ", np.mean([len(x) for x in edges]))
 
     order = smallestLastOrdering(edges)
+
+    print("Generated Smallest-Last Ordering")
+
+    colors = generateColoring(order, edges)
+
+    print("Generated Coloring")
+
+    print(colors)
 
 main()
