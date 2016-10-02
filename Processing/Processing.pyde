@@ -3,6 +3,9 @@
 import collections
 import sys
 
+SCREEN_WIDTH = 750
+SCREEN_HEIGHT = 750
+
 print(sys.executable)
 
 def dist(x, y):
@@ -145,16 +148,20 @@ def generateColoring(order, edges):
 
 def drawGraph(points, edges, colors):
     
+    strokeWeight(0.1)
     num_colors = max(colors)
     
-    for i, p in enumerate(points):
+    for i in range(len(points)):
         fill(float(colors[i]) / num_colors * 255)
-        ellipse(p[0]*width, p[1]*height, 1, 1)
+        ellipse(points[i][0]*SCREEN_WIDTH, points[i][1]*SCREEN_HEIGHT, 5, 5)
+    
+        for j in edges[i]:
+            line(points[i][0]*SCREEN_WIDTH, points[i][1]*SCREEN_HEIGHT, points[j][0]*SCREEN_WIDTH, points[j][1]*SCREEN_HEIGHT)
 
 def main():
 
-    NUM_NODES = 100
-    AVG_DEGREE = 32
+    NUM_NODES = 64000
+    AVG_DEGREE = 128
     DISTRIBUTION = "Square"
 
     radius = calculateRadius(NUM_NODES, AVG_DEGREE, DISTRIBUTION)
@@ -174,12 +181,12 @@ def main():
     colors = generateColoring(order, edges)
 
     print("Generated Coloring")
-
-    drawGraph(points, edges, colors)
+    
+    #drawGraph(points, edges, colors)
 
 
 def setup():
-    size(750,750)
+    size(SCREEN_WIDTH, SCREEN_HEIGHT)
     background(255)
-    
-main()
+    frameRate(1)
+    main()
