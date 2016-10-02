@@ -1,5 +1,5 @@
 import numpy as np
-
+from collections import deque
 
 def calculateRadius(nodes, degree, dist):
     if dist == "Square":
@@ -68,10 +68,58 @@ def findEdges(nodes, rad, alg="Brute"):
 
     return edges
 
+#http://delivery.acm.org/10.1145/330000/322385/p417-matula.pdf?ip=129.119.235.10&id=322385&acc=ACTIVE%20SERVICE&key=F82E6B88364EF649%2E15D8CE2BE55FDC61%2E4D4702B0C3E38B35%2E4D4702B0C3E38B35&CFID=846405691&CFTOKEN=41964261&__acm__=1475437801_60bbe556cff95b888b8a5678bcd70693
+def smallestLastOrdering(edges, alg="Brute"):
+
+    vertices = []
+
+    degrees = [len(x) for x in edges]
+    maxdegree = max(degrees)
+
+    buckets = []
+    for i in range(maxdegree+1):
+        buckets.append(deque())
+
+    for i in range(len(edges)):
+        buckets[len(edges[i])].append(i)
+
+    j = len(edges)
+
+    print(buckets[min(degrees)])
+
+    while(j > 0):
+
+        i = 0
+
+        while(i < maxdegree and len(buckets[i]) == 0):
+            i = i+1
+
+
+        ivj = buckets[i].pop()
+        vertices.append(ivj)
+
+        for u in edges[ivj]:
+
+            deg = degrees[u]
+
+            inlist = True
+            try:
+                buckets[deg].remove(u)
+            except:
+                inlist = False
+
+            if(inlist):
+                buckets[deg-1].append(u)
+
+            degrees[u] = deg-1
+
+        j = j - 1
+
+    return vertices[::-1]
 
 def main():
 
-    NUM_NODES = 5000
+    NUM_NODES = 1000
     AVG_DEGREE = 32
     DISTRIBUTION = "Square"
 
@@ -83,7 +131,11 @@ def main():
 
     edges = findEdges(points, radius, alg="Buckets")
 
-    print("Average edge count: ")
-    print(np.mean([len(x) for x in edges]))
+    print("Average edge count: ", np.mean([len(x) for x in edges]))
+
+    order = smallestLastOrdering(edges)
+    print(len(order))
+
+    print(order[-10:])
 
 main()
