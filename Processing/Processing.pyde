@@ -6,7 +6,23 @@ import sys
 SCREEN_WIDTH = 750
 SCREEN_HEIGHT = 750
 
-print(sys.executable)
+def argmax(ls):
+    m = max(ls)
+    ret = []
+    for x in range(len(ls)):
+        if(ls[x] == m):
+            ret.append(x)
+    return ret
+
+def topN(ls, n=2):
+    
+    ret = []
+    while(len(ret) < n):
+        ret += argmax(ls)
+        ls = ls.remove(max(ls))
+        
+    return ret[0:n]
+    
 
 def distance(x, y):
     return sqrt(sum([(x[i]-y[i])**2 for i in range(len(x))]))
@@ -173,18 +189,18 @@ def drawGraphWithBackbone(points, edges, colors, backbone):
     
     strokeWeight(0.1)
     
-    color1 = colors[backbone[0]]
+    col1 = colors[backbone[0]]
     
     for i in range(len(points)):
         fill(0)
         ellipse(points[i][0]*SCREEN_WIDTH, points[i][1]*SCREEN_HEIGHT, 5, 5)
     
-    for i in range(len(backbone)):
-    
-        if colors[backbone[i]] == color1:
-            fill(255,0,0)
-        else: 
+    for i in backbone:
+            
+        if(colors[i] == col1):
             fill(0,0,255)
+        else:
+            fill(255,0,0)
             
         ellipse(points[i][0]*SCREEN_WIDTH, points[i][1]*SCREEN_HEIGHT, 10, 10)
     
@@ -298,12 +314,12 @@ def main():
     coverages = coverageOfBackbones(points, edges, backbones)
     
     print("Calculated Backbone Coverages")
-    print(coverages)
+
+    topBackbones = [backbones[i] for i in(topN(coverages))]
     
-    #drawGraph(points, edges, colors)
-    #drawGraphWithBackbone(points, edges, colors, backbones[0])
+    print("Found Top-2 Backbones")
     
-    drawGraphWithSingleColor(points, edges, colorLists[0])
+    drawGraph(points, edges, colors)
 
 def setup():
     size(SCREEN_WIDTH, SCREEN_HEIGHT)
