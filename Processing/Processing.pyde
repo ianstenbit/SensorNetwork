@@ -169,11 +169,103 @@ def drawGraph(points, edges, colors):
         for j in edges[i]:
             line(points[i][0]*SCREEN_WIDTH, points[i][1]*SCREEN_HEIGHT, points[j][0]*SCREEN_WIDTH, points[j][1]*SCREEN_HEIGHT)
 
+def drawGraphWithBackbone(points, edges, colors, backbone):
+    
+    strokeWeight(0.1)
+    
+    color1 = colors[backbone[0]]
+    
+    for i in range(len(points)):
+        fill(0)
+        ellipse(points[i][0]*SCREEN_WIDTH, points[i][1]*SCREEN_HEIGHT, 5, 5)
+    
+    for i in range(len(backbone)):
+    
+        if colors[backbone[i]] == color1:
+            fill(255,0,0)
+        else: 
+            fill(0,0,255)
+            
+        ellipse(points[i][0]*SCREEN_WIDTH, points[i][1]*SCREEN_HEIGHT, 10, 10)
+    
+        for j in edges[i]:
+            line(points[i][0]*SCREEN_WIDTH, points[i][1]*SCREEN_HEIGHT, points[j][0]*SCREEN_WIDTH, points[j][1]*SCREEN_HEIGHT)
+
+def drawGraphWithSingleColor(points, edges, col):
+    
+    strokeWeight(0.1)
+    print(col)
+    
+    for i in col:
+        
+        fill(0)
+        ellipse(points[i][0]*SCREEN_WIDTH, points[i][1]*SCREEN_HEIGHT, 5, 5)
+    
+        for j in edges[i]:
+            if(j in col):
+                print("Well, this is bad.")
+                line(points[i][0]*SCREEN_WIDTH, points[i][1]*SCREEN_HEIGHT, points[j][0]*SCREEN_WIDTH, points[j][1]*SCREEN_HEIGHT)
+
+def getListsByColor(colors):
+    
+    lists = []
+    for i in range(max(colors)+1):
+        lists.append([])
+        
+    for i in range(len(colors)):
+        lists[colors[i]].append(i)
+    
+    return lists
+
+def bucketSort(list):
+    
+    buckets = []
+    max_val = max([len(x) for x in list])
+    
+    for i in range(max_val+1):
+        buckets.append([])
+
+    for item in list:
+        buckets[len(item)].append(item)
+
+    out = []
+    for bucket in buckets:
+        for item in bucket:
+            out.append(item)
+
+    return out[::-1]
+
+def generateBackbones(topColors):
+    
+    ls = []
+    for i, l in enumerate(topColors):
+        for j in range(i+1, len(topColors)):
+            ls.append(l + topColors[j])
+            
+    return ls
+
+def coverageOfBackbones(points, edges, backbones):
+    
+    ls = []
+    
+    for backbone in backbones:
+        
+        covered = [0 for x in range(len(points))]
+        
+        for node in backbone:
+            for connectedNode in edges[node]:
+                covered[connectedNode] = 1
+                
+        ls.append(sum(covered))
+                
+    return ls        
+                
+
 def main():
 
     NUM_NODES = 1000
     AVG_DEGREE = 32
-    DISTRIBUTION = "Disk"
+    DISTRIBUTION = "Square"
 
     radius = calculateRadius(NUM_NODES, AVG_DEGREE, DISTRIBUTION)
 
@@ -193,8 +285,25 @@ def main():
 
     print("Generated Coloring")
     
-    drawGraph(points, edges, colors)
-
+    colorLists = getListsByColor(colors)
+    colorLists = bucketSort(colorLists)
+    topColors = colorLists[0:4]
+    
+    print("Generated Color Lists")
+    
+    backbones = generateBackbones(topColors)
+    
+    print("Generated Backbones")
+    
+    coverages = coverageOfBackbones(points, edges, backbones)
+    
+    print("Calculated Backbone Coverages")
+    print(coverages)
+    
+    #drawGraph(points, edges, colors)
+    #drawGraphWithBackbone(points, edges, colors, backbones[0])
+    
+    drawGraphWithSingleColor(points, edges, colorLists[0])
 
 def setup():
     size(SCREEN_WIDTH, SCREEN_HEIGHT)
