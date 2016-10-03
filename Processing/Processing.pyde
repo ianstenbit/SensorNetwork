@@ -1,10 +1,15 @@
-#add_library('numpy')
-#add_library('collections')
 import collections
 import sys
 
 SCREEN_WIDTH = 750
 SCREEN_HEIGHT = 750
+
+rot = (0,0,0)
+location = (0,0,0)
+
+def updateXRotation(xRotation, change):
+    xRotation = xRotation + change
+    return xRotation
 
 def removeMax(input):
     
@@ -220,22 +225,24 @@ def drawGraph(points, edges, colors):
 def drawGraph3D(points, edges, colors):
     
     background(0)
+    print(location)
     
     for i in range(len(points)):
         p = points[i]
         pushMatrix()
     
-        camera(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, -2*SCREEN_WIDTH, 0, 0, 0, 1, 1, 1)
+        camera(SCREEN_WIDTH/2 + location[0], SCREEN_HEIGHT/2 + location[1], -2*SCREEN_WIDTH  + location[2], 0, 0, 0, 1, 1, 1)     
                 
-        rotateY(mouseX * PI/500)
-        rotateX(mouseY * PI/500)
+        rotateY(rot[0]*cos(rot[2]))
+        rotateX(rot[1]*sin(rot[2]))
+        rotateX(rot[2])
+        rotateY(rot[2])
+        
     
-        
         translate((p[0])*SCREEN_WIDTH, (p[1])*SCREEN_WIDTH, (p[2])*SCREEN_WIDTH)
-        
         fill(0,0,255)
         box(10)
-        
+    
         stroke(255)
         for edge in edges[i]:
             node2 = points[edge]
@@ -243,15 +250,6 @@ def drawGraph3D(points, edges, colors):
         
         popMatrix()
         
-    # stroke(255)
-    # count = 0
-    # for idx in range(len(edges)):
-    #     for edge in edges[idx]:
-    #         node = points[idx]
-    #         node2 = points[edge]
-    #         count = count + 1
-    #         line(node[0]*SCREEN_WIDTH, node[1]*SCREEN_HEIGHT, node[2]*SCREEN_WIDTH, node2[0]*SCREEN_WIDTH, node2[1]*SCREEN_HEIGHT, node2[2]*SCREEN_WIDTH)
-
 
 def drawGraphWithBackbone(points, edges, colors, backbone):
     
@@ -346,9 +344,10 @@ def coverageOfBackbones(points, edges, backbones):
             
 
 
-NUM_NODES = 100
-AVG_DEGREE = 5
+NUM_NODES = 1000
+AVG_DEGREE = 16
 DISTRIBUTION = "Sphere"
+
 
 radius = calculateRadius(NUM_NODES, AVG_DEGREE, DISTRIBUTION)
 
@@ -388,16 +387,43 @@ topBackbones = [backbones[i] for i in(topN(coverages))]
 
 print("Found Top-2 Backbones")
 
-#drawGraph(points, edges, colors)
-
-#drawGraph3D(points, edges, colors)
-
 def setup():
     
+
     size(SCREEN_WIDTH, SCREEN_HEIGHT, P3D)
     #size(SCREEN_WIDTH, SCREEN_HEIGHT)
+        
     background(255)
     frameRate(30)
     
 def draw():
-    drawGraph3D(points, edges, colors)
+    
+    global rot
+    
+    if(DISTRIBUTION == "Sphere"):
+        drawGraph3D(points, edges, colors)
+    else: 
+        drawGraph(points, edges, colors)
+        
+    rot = (rot[0], rot[1], rot[2] + PI/1000)
+    
+def mouseWheel(event):
+    global location
+    
+    location = (location[0], location[1], location[2] + SCREEN_WIDTH/20 * event.getCount())
+                
+def mouseDragged():
+    
+    global rot
+    
+    print(DISTRIBUTION)
+    #xRotation = updateXRotation(xRotation, (mouseX - pmouseX)*PI/500)
+    #xRotation = xRotation + (mouseX - pmouseX)*PI/500
+    #yRotation = yRotation + (mouseY - pmouseY)*PI/500
+    yRotation = mouseY*PI/500
+    xRotation = mouseX*PI/500
+    
+    rot = (xRotation, yRotation, rot[2])
+    
+    print(rot)
+    #xRotation = 0
