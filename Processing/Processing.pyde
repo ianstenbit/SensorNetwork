@@ -30,10 +30,7 @@ def topN(ls, n=2):
     ret = []
     while(len(ret) < n):
         ret += argmax(ls)
-        print(ls)
-        print("Gonna Remove")
         ls = removeMax(ls)
-        print(ls)
         
     return ret[0:n]
     
@@ -50,7 +47,7 @@ def calculateRadius(nodes, degree, dist):
     if dist == "Disk":
         return sqrt((degree + 0.0)/nodes)/2
     if dist == "Sphere":
-        return sqrt((degree + 0.0)/nodes)/2
+        return sqrt((degree + 0.0)/nodes)*2
     return -1
 
 def generatePoints(dist, nodes):
@@ -73,7 +70,7 @@ def generatePoints(dist, nodes):
         ls = []
         num = 0
         while(num < nodes):
-            item = [random(1), random(1), random(1)]
+            item = [random(-1,1), random(-1,1), random(-1,1)]
             dst = distance(item, [0,0,0]) 
                 
             if dst <= 1:
@@ -221,7 +218,39 @@ def drawGraph(points, edges, colors):
             line(points[i][0]*SCREEN_WIDTH, points[i][1]*SCREEN_HEIGHT, points[j][0]*SCREEN_WIDTH, points[j][1]*SCREEN_HEIGHT)
 
 def drawGraph3D(points, edges, colors):
-    1
+    
+    background(0)
+    
+    for i in range(len(points)):
+        p = points[i]
+        pushMatrix()
+    
+        camera(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, -2*SCREEN_WIDTH, 0, 0, 0, 1, 1, 1)
+                
+        rotateX(mouseX * PI/500)
+        rotateY(mouseY * PI/500)
+    
+        
+        translate((p[0])*SCREEN_WIDTH, (p[1])*SCREEN_WIDTH, (p[2])*SCREEN_WIDTH)
+        
+        box(5)
+        
+        stroke(255)
+        for edge in edges[i]:
+            node2 = points[edge]
+            line(0,0,0, (p[0]-node2[0])*SCREEN_WIDTH, (p[1] - node2[1])*SCREEN_HEIGHT, (p[2] - node2[2])*SCREEN_WIDTH)
+        
+        popMatrix()
+        
+    # stroke(255)
+    # count = 0
+    # for idx in range(len(edges)):
+    #     for edge in edges[idx]:
+    #         node = points[idx]
+    #         node2 = points[edge]
+    #         count = count + 1
+    #         line(node[0]*SCREEN_WIDTH, node[1]*SCREEN_HEIGHT, node[2]*SCREEN_WIDTH, node2[0]*SCREEN_WIDTH, node2[1]*SCREEN_HEIGHT, node2[2]*SCREEN_WIDTH)
+
 
 def drawGraphWithBackbone(points, edges, colors, backbone):
     
@@ -313,57 +342,61 @@ def coverageOfBackbones(points, edges, backbones):
         ls.append(sum(covered))
                 
     return ls        
-                
+            
 
-def main():
 
-    NUM_NODES = 1000
-    AVG_DEGREE = 32
-    DISTRIBUTION = "Sphere"
+NUM_NODES = 1000
+AVG_DEGREE = 16
+DISTRIBUTION = "Sphere"
 
-    radius = calculateRadius(NUM_NODES, AVG_DEGREE, DISTRIBUTION)
+radius = calculateRadius(NUM_NODES, AVG_DEGREE, DISTRIBUTION)
 
-    points = generatePoints(DISTRIBUTION, NUM_NODES)
+points = generatePoints(DISTRIBUTION, NUM_NODES)
 
-    print("Generated Points")
-    #print(points)
+print("Generated Points")
+#print(points)
 
-    edges = findEdges(points, radius, alg="Buckets", mode=DISTRIBUTION)
+edges = findEdges(points, radius, alg="Buckets", mode=DISTRIBUTION)
 
-    print("Average edge count: ", average([len(x) for x in edges]))
+print("Average edge count: ", average([len(x) for x in edges]))
 
-    order = smallestLastOrdering(edges)
+order = smallestLastOrdering(edges)
 
-    print("Generated Smallest-Last Ordering")
+print("Generated Smallest-Last Ordering")
 
-    colors = generateColoring(order, edges)
+colors = generateColoring(order, edges)
 
-    print("Generated Coloring")
-    
-    colorLists = getListsByColor(colors)
-    colorLists = bucketSort(colorLists)
-    topColors = colorLists[0:4]
-    
-    print("Generated Color Lists")
-    
-    backbones = generateBackbones(topColors)
-    
-    print("Generated Backbones")
-    
-    coverages = coverageOfBackbones(points, edges, backbones)
-    
-    print("Calculated Backbone Coverages")
+print("Generated Coloring")
 
-    print(coverages)
-    topBackbones = [backbones[i] for i in(topN(coverages))]
-    
-    print("Found Top-2 Backbones")
-    
-    #drawGraph(points, edges, colors)
+colorLists = getListsByColor(colors)
+colorLists = bucketSort(colorLists)
+topColors = colorLists[0:4]
+
+print("Generated Color Lists")
+
+backbones = generateBackbones(topColors)
+
+print("Generated Backbones")
+
+coverages = coverageOfBackbones(points, edges, backbones)
+
+print("Calculated Backbone Coverages")
+
+print(coverages)
+topBackbones = [backbones[i] for i in(topN(coverages))]
+
+print("Found Top-2 Backbones")
+
+#drawGraph(points, edges, colors)
+
+#drawGraph3D(points, edges, colors)
 
 def setup():
     
-    size(SCREEN_WIDTH, SCREEN_HEIGHT)
+    size(SCREEN_WIDTH, SCREEN_HEIGHT, P3D)
+    #size(SCREEN_WIDTH, SCREEN_HEIGHT)
     background(255)
-    frameRate(1)
-    main()
+    frameRate(30)
+    
+def draw():
+    drawGraph3D(points, edges, colors)
