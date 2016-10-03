@@ -227,18 +227,19 @@ def drawGraph3D(points, edges, colors):
     
         camera(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, -2*SCREEN_WIDTH, 0, 0, 0, 1, 1, 1)
                 
-        rotateX(mouseX * PI/500)
-        rotateY(mouseY * PI/500)
+        rotateY(mouseX * PI/500)
+        rotateX(mouseY * PI/500)
     
         
         translate((p[0])*SCREEN_WIDTH, (p[1])*SCREEN_WIDTH, (p[2])*SCREEN_WIDTH)
         
-        box(5)
+        fill(0,0,255)
+        box(10)
         
         stroke(255)
         for edge in edges[i]:
             node2 = points[edge]
-            line(0,0,0, (p[0]-node2[0])*SCREEN_WIDTH, (p[1] - node2[1])*SCREEN_HEIGHT, (p[2] - node2[2])*SCREEN_WIDTH)
+            line(0,0,0, (node2[0]-p[0])*SCREEN_WIDTH, (node2[1] - p[1])*SCREEN_HEIGHT, (node2[2] - p[2])*SCREEN_WIDTH)
         
         popMatrix()
         
@@ -345,8 +346,8 @@ def coverageOfBackbones(points, edges, backbones):
             
 
 
-NUM_NODES = 1000
-AVG_DEGREE = 16
+NUM_NODES = 100
+AVG_DEGREE = 5
 DISTRIBUTION = "Sphere"
 
 radius = calculateRadius(NUM_NODES, AVG_DEGREE, DISTRIBUTION)
