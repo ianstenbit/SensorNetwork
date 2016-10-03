@@ -1,6 +1,7 @@
-\documentclass[12pt]{article}
+\documentclass[12pt]{report}
 \usepackage[margin=0.9in]{geometry} 
 \usepackage{enumitem}
+\usepackage{float}
 \usepackage{graphicx, subfig}
 \setlist{noitemsep}
 
@@ -21,33 +22,54 @@
 \vspace*{\fill}
 \end{titlepage}
 
-\begin{titlepage}
-\vspace*{\fill}
-\begin{center}
+
   
 \tableofcontents
-     
-\end{center}
-\vspace*{\fill}
-\end{titlepage}
 
   
 
-\begin{center}
-      {\Huge Executive Summary}\\[0.5cm]
-\end{center}
+\chapter{Executive Summary}
 \section{Introduction}
+Widely distributed networks of sensors which relay information to one another, called sensor networks, are an area of interest for many natural and computer scientists. Because inexpensive sensors can easily be distributed around a physical area, sensor networks are a viable strategy for a wide variety of applications. For example, if one were interested in measuring rainfall over the surface of the earth, a globally-distributed network of rainfall-measuring sensors could be used. Connecting these sensors in an efficient and fault-tolerant way in a wireless environment is a difficult problem. In order to minimize energy consumption for the overall network of sensors and maximize node availability across the network, it is useful to define a set of nodes, called a backbone, which are responsible for transmitting data across the entire network \textsuperscript{[1]}.
+
+In this report, we present an implementation of a graph-coloring algorithm to compute a high-coverage backbone for a wireless sensor network. The algorithm, given an randomized distribution of points (which represent sensors in a physical space) identifies a subset of points which provide maximal connectivity to the remaining points. This computation is performed in linear time with respect to the sum of the number of points and the number of connections between points. A smallest-last vertex ordering is used to compute a coloring of the graph, and high-frequency pairs of colors are evaluated as network backbones. The resulting networks, along with their backbones are visualized for a unit square distribution, a unit disk distribution, and a spherical distribution. Table \ref{summaryTable} shows the performance of the algorithm for a set of benchmark cases.
+
+
+\begin{table}
+\centering
+\begin{tabular}{| c | c | c | c | c | c | c |}
+\hline
+ID & Distribution  & $N_{total}$ & E & R & $N_{covered}$ & Percent Coverage\\
+\hline
+1 & Square & 1000 & & & & \\
+2 & Square & 4000 & & & &\\
+3 & Square & 16000 & & & &\\
+4 & Square & 64000 & & & &\\
+5 & Square & 64000 & & & &\\
+6 & Disk & 4000 & & & &\\
+7 & Disk & 4000 & & & &\\
+8 & Sphere & 4000 & & & &\\
+9 & Sphere & 16000 & & & &\\
+10 & Sphere & 64000 & & & &\\
+\hline
+\end{tabular}
+\caption{A summary of the results of each of the 10 benchmark data sets}
+\label{summaryTable}
+\end{table}
+
+To acheive linear time complexity for backbone selection, a number of operations has to be performed in linear time. Most non-trivially, the smallest last first vertex ordering must be computed in linear time. The algorithm used to achieve this is described in Matula, D.W, Beck, L.L 1983 \textsuperscript{[2]}.
+
+
 \section{Programming Environment}
 
-\begin{thebibliography}{9} 
-\bibitem{example} CITATION HERE
-\end{thebibliography} 
+\section{References}
+[1] Mahfoudh, Chalhoub, Minet, Misson, Amdouni, Node Coloring and Color Conflict Detection in Wireless Sensor Networks, \textit{Future Internet}, 2010, 469-504
 
+[2] Matula, D.W, Beck, L.L, Smallest-Last Ordering and Clustering and Graph Coloring Algorithms, \textit{Journal of the Association for Computing Machinery}, July 1983, 421-427
 \newpage
 \setcounter{section}{0}
-\begin{center}
-      {\Huge Wireless Sensor Network Backbone Report}\\[0.5cm]
-\end{center}
+
+\chapter{Wireless Sensor Network Backbone Report}
 \section{Reduction to Practice}
 \section{Benchmark Results}
 

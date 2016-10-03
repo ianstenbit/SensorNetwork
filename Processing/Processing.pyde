@@ -148,7 +148,6 @@ def findEdges(nodes, rad, alg="Brute", mode="2D"):
 
     return edges
 
-#http://delivery.acm.org/10.1145/330000/322385/p417-matula.pdf?ip=129.119.235.10&id=322385&acc=ACTIVE%20SERVICE&key=F82E6B88364EF649%2E15D8CE2BE55FDC61%2E4D4702B0C3E38B35%2E4D4702B0C3E38B35&CFID=846405691&CFTOKEN=41964261&__acm__=1475437801_60bbe556cff95b888b8a5678bcd70693
 def smallestLastOrdering(edges, alg="Brute"):
 
     vertices = []
