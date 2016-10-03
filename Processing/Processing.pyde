@@ -343,7 +343,7 @@ def coverageOfBackbones(points, edges, backbones):
             
 
 
-NUM_NODES = 64000
+NUM_NODES = 16000
 AVG_DEGREE = 128
 DISTRIBUTION = "Sphere" #Disk, Square, or Sphere
 
@@ -389,11 +389,14 @@ print("Found Top-2 Backbones")
 def setup():
     
 
-    size(SCREEN_WIDTH, SCREEN_HEIGHT, P3D)
-    #size(SCREEN_WIDTH, SCREEN_HEIGHT)
+    #size(SCREEN_WIDTH, SCREEN_HEIGHT, P3D)
+    size(SCREEN_WIDTH, SCREEN_HEIGHT)
         
     background(255)
     frameRate(30)
+    
+    if(DISTRIBUTION != "Sphere"): 
+        drawGraph(points, edges, colors)
     
 def draw():
     
@@ -402,8 +405,7 @@ def draw():
     if(DISTRIBUTION == "Sphere" and len(points) <= 1000):
         drawGraph3D(points, edges, colors)
         rot = (rot[0], rot[1], rot[2] + PI/1000)
-    elif(DISTRIBUTION != "Sphere"): 
-        drawGraph(points, edges, colors)
+
     
 def mouseWheel(event):
     global location
