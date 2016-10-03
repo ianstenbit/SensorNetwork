@@ -225,7 +225,6 @@ def drawGraph(points, edges, colors):
 def drawGraph3D(points, edges, colors):
     
     background(0)
-    print(location)
     
     for i in range(len(points)):
         p = points[i]
@@ -344,9 +343,9 @@ def coverageOfBackbones(points, edges, backbones):
             
 
 
-NUM_NODES = 1000
-AVG_DEGREE = 16
-DISTRIBUTION = "Sphere"
+NUM_NODES = 64000
+AVG_DEGREE = 128
+DISTRIBUTION = "Sphere" #Disk, Square, or Sphere
 
 
 radius = calculateRadius(NUM_NODES, AVG_DEGREE, DISTRIBUTION)
@@ -400,12 +399,11 @@ def draw():
     
     global rot
     
-    if(DISTRIBUTION == "Sphere"):
+    if(DISTRIBUTION == "Sphere" and len(points) <= 1000):
         drawGraph3D(points, edges, colors)
-    else: 
+        rot = (rot[0], rot[1], rot[2] + PI/1000)
+    elif(DISTRIBUTION != "Sphere"): 
         drawGraph(points, edges, colors)
-        
-    rot = (rot[0], rot[1], rot[2] + PI/1000)
     
 def mouseWheel(event):
     global location
