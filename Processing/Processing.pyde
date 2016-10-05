@@ -328,14 +328,20 @@ def coverageOfBackbones(points, edges, backbones):
         coverages.append(coverageOfEdges(points, e))
         
     return coverages
+
+def numFaces(points, edges):
+    #Using Euler's formula
+    #V-E+F = 2 (2 for planar graph)
+    #F = 2+E-V
+    
+    #This assumes that this is a connected graph
+    
+    return 2+sum([len(x) for x in edges])/2 - len(points)
                 
-            
-            
 
-
-NUM_NODES = 16000
+NUM_NODES = 1000
 AVG_DEGREE = 32
-DISTRIBUTION = "Square" #Disk, Square, or Sphere
+DISTRIBUTION = "Sphere" #Disk, Square, or Sphere
 RENDER_MODE = 0
 
 
@@ -377,6 +383,8 @@ topBackbones = [backbones[i] for i in sorted(range(len(coverages)), key=lambda i
 print("Found Top-2 Backbones")
 print("Coverages of Top Backbones:", coverageOfBackbones(points, edges, topBackbones))
 
+if DISTRIBUTION == "Sphere":
+    print("Number of Faces on Sphere:", numFaces(points, edges))
 
 def drawGraphHelper(p, e, c):
     
@@ -394,8 +402,8 @@ def drawGraphHelper(p, e, c):
 def setup():
     
 
-    #size(SCREEN_WIDTH, SCREEN_HEIGHT, P3D)
-    size(SCREEN_WIDTH, SCREEN_HEIGHT)
+    size(SCREEN_WIDTH, SCREEN_HEIGHT, P3D)
+    #size(SCREEN_WIDTH, SCREEN_HEIGHT)
         
     background(255)
     frameRate(30)
