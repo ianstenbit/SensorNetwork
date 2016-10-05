@@ -329,7 +329,7 @@ def coverageOfBackbones(points, edges, backbones):
         
     return coverages
 
-def numFaces(points, edges):
+def numFacesOnBackbone(points, edges):
     #Using Euler's formula
     #V-E+F = 2 (2 for planar graph)
     #F = 2+E-V
@@ -337,7 +337,25 @@ def numFaces(points, edges):
     #This assumes that this is a connected graph
     
     return 2+sum([len(x) for x in edges])/2 - len(points)
-                
+      
+def getBackboneEdges(edges, backbones):
+    
+    ls = []
+    
+    for backbone in backbones:
+        
+        e = [[] for i in range(len(edges))]
+        for node in backbone:
+            enode = []
+            for node2 in edges[node]:
+                if node2 in backbone:
+                    enode.append(node2)
+            e[node] = enode
+    
+        ls.append(e)
+        
+    return ls    
+
 
 NUM_NODES = 1000
 AVG_DEGREE = 32
@@ -383,8 +401,12 @@ topBackbones = [backbones[i] for i in sorted(range(len(coverages)), key=lambda i
 print("Found Top-2 Backbones")
 print("Coverages of Top Backbones:", coverageOfBackbones(points, edges, topBackbones))
 
+backboneEdges = getBackboneEdges(edges, topBackbones)
+
+print("Found Edges in Top Backbones")
+
 if DISTRIBUTION == "Sphere":
-    print("Number of Faces on Sphere:", numFaces(points, edges))
+    print("Number of Faces on Backbones:", [numFacesOnBackbone(topBackbones[i], backboneEdges[i]) for i in range(len(topBackbones))])
 
 def drawGraphHelper(p, e, c):
     
@@ -417,9 +439,10 @@ def draw():
         for p in topBackbones[RENDER_MODE-2]:
             e[p] = edges[p]
         drawGraphHelper (points, e, colors)
-    elif(RENDER_MODE in [4,5,6,7]):
-        drawGraphHelper([points[x] for x in topColors[RENDER_MODE-4]], [[] for x in topColors[RENDER_MODE-4]], colors)
-
+    elif(RENDER_MODE in [4, 5]):
+        drawGraphHelper(points, backboneEdges[RENDER_MODE-4], colors)
+    elif(RENDER_MODE in [6,7,8,9]):
+        drawGraphHelper([points[x] for x in topColors[RENDER_MODE-6]], [[] for x in topColors[RENDER_MODE-4]], colors)
     
 def mouseWheel(event):
     global location
