@@ -288,26 +288,55 @@ def generateBackbones(topColors):
             
     return ls
 
-def coverageOfBackbones(points, edges, backbones):
+def coverageOfEdges(points, edges):
     
-    ls = []
+    covered = [0 for i in range(len(points))]
+    coverages = []
+    
+    while(0 in covered):
+        
+        coverage = 1
+        
+        queue = collections.deque()
+        queue.append(covered.index(0))
+        covered[covered.index(0)] = 1
+        
+        while(len(queue) != 0):
+            
+            currNode = queue.pop()
+            
+            for node in edges[currNode]:
+                if(covered[node] == 0):
+                    coverage = coverage + 1
+                    queue.append(node)
+                    covered[node] = 1
+                    
+        coverages.append(coverage)
+        
+        
+    print(sum(coverages), len(covered), sum(covered))
+    return max(coverages)
+
+def coverageOfBackbones(points, edges, backbones):
+                
+    coverages = []
     
     for backbone in backbones:
         
-        covered = [0 for x in range(len(points))]
+        e = [[] for i in range(len(edges))]
+        for n in backbone:
+            e[n] = edges[n]
+            
+        coverages.append(coverageOfEdges(points, e))
         
-        for node in backbone:
-            for connectedNode in edges[node]:
-                covered[connectedNode] = 1
+    return coverages
                 
-        ls.append(sum(covered))
-                
-    return ls        
+            
             
 
 
-NUM_NODES = 1000
-AVG_DEGREE = 8
+NUM_NODES = 16000
+AVG_DEGREE = 32
 DISTRIBUTION = "Square" #Disk, Square, or Sphere
 RENDER_MODE = 0
 
