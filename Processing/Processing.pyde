@@ -7,6 +7,9 @@ SCREEN_HEIGHT = 750
 rot = (0,0,0)
 location = (0,0,0)
 
+NUM_RENDER_MODES = 10
+NEED_2D_RENDER_UPDATE = False
+
 def updateXRotation(xRotation, change):
     xRotation = xRotation + change
     return xRotation
@@ -120,8 +123,6 @@ def findEdges(nodes, rad, alg="Brute", mode="2D"):
 
         for x in range(len(nodes)):
             buckets[int(nodes[x][0]*num_buckets)][int(nodes[x][1]*num_buckets)].append(x)
-
-        print("Buckets:", sum([len(buckets[a][b]) for a in range(num_buckets) for b in range(num_buckets)]))
 
         for y in range(num_buckets):
 
@@ -334,9 +335,10 @@ def coverageOfBackbones(points, edges, backbones):
             
 
 
-NUM_NODES = 1000
+NUM_NODES = 16000
 AVG_DEGREE = 32
-DISTRIBUTION = "Sphere" #Disk, Square, or Sphere
+DISTRIBUTION = "Disk" #Disk, Square, or Sphere
+RENDER_MODE = 0
 
 
 radius = calculateRadius(NUM_NODES, AVG_DEGREE, DISTRIBUTION)
@@ -356,6 +358,7 @@ print("Generated Smallest-Last Ordering")
 colors = generateColoring(order, edges)
 
 print("Generated Coloring")
+print("Number of Colors:", max(colors)+1)
 
 colorLists = getListsByColor(colors)
 colorLists = bucketSort(colorLists)
@@ -371,31 +374,44 @@ coverages = coverageOfBackbones(points, edges, backbones)
 
 print("Calculated Backbone Coverages")
 
-print(coverages)
 topBackbones = [backbones[i] for i in(topN(coverages))]
 
 print("Found Top-2 Backbones")
+print("Coverages of Top Backbones:", coverageOfBackbones(points, edges, topBackbones))
 
+def drawGraphHelper(p, e, c):
+    
+    global rot
+    global NEED_2D_RENDER_UPDATE
+    
+    if(DISTRIBUTION == "Sphere" and len(points) <= 4000):
+        rot = (rot[0], rot[1], rot[2] + PI/1000)
+        drawGraph3D(p, e, c)
+    elif(DISTRIBUTION != "Sphere" and NEED_2D_RENDER_UPDATE):
+        NEED_2D_RENDER_UPDATE = False
+        background(255)
+        drawGraph(p, e, c)
 
 def setup():
     
 
-    size(SCREEN_WIDTH, SCREEN_HEIGHT, P3D)
-    #size(SCREEN_WIDTH, SCREEN_HEIGHT)
+    #size(SCREEN_WIDTH, SCREEN_HEIGHT, P3D)
+    size(SCREEN_WIDTH, SCREEN_HEIGHT)
         
     background(255)
     frameRate(30)
     
-    if(DISTRIBUTION != "Sphere"): 
-        drawGraph(points, edges, colors)
-    
 def draw():
     
-    global rot
-    
-    if(DISTRIBUTION == "Sphere" and len(points) <= 4000):
-        drawGraph3D(points, edges, colors)
-        rot = (rot[0], rot[1], rot[2] + PI/1000)
+    if(RENDER_MODE == 1):
+        drawGraphHelper(points, edges, colors)
+    elif(RENDER_MODE in [2,3]):
+        e = [[] for i in range(len(points))]
+        for p in topBackbones[RENDER_MODE-2]:
+            e[p] = edges[p]
+        drawGraphHelper (points, e, colors)
+    elif(RENDER_MODE in [4,5,6,7]):
+        drawGraphHelper([points[x] for x in topColors[RENDER_MODE-4]], [[] for x in topColors[RENDER_MODE-4]], colors)
 
     
 def mouseWheel(event):
@@ -407,14 +423,16 @@ def mouseDragged():
     
     global rot
     
-    print(DISTRIBUTION)
-    #xRotation = updateXRotation(xRotation, (mouseX - pmouseX)*PI/500)
-    #xRotation = xRotation + (mouseX - pmouseX)*PI/500
-    #yRotation = yRotation + (mouseY - pmouseY)*PI/500
     yRotation = mouseY*PI/500
     xRotation = mouseX*PI/500
     
     rot = (xRotation, yRotation, rot[2])
     
-    print(rot)
-    #xRotation = 0
+def keyPressed():
+    
+    global RENDER_MODE
+    global NEED_2D_RENDER_UPDATE
+    
+    RENDER_MODE = int(key) %NUM_RENDER_MODES
+    NEED_2D_RENDER_UPDATE = True
+    print(RENDER_MODE, NEED_2D_RENDER_UPDATE)
