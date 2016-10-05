@@ -312,9 +312,7 @@ def coverageOfEdges(points, edges):
                     covered[node] = 1
                     
         coverages.append(coverage)
-        
-        
-    print(sum(coverages), len(covered), sum(covered))
+    
     return max(coverages)
 
 def coverageOfBackbones(points, edges, backbones):
@@ -373,14 +371,11 @@ print("Generated Backbones")
 coverages = coverageOfBackbones(points, edges, backbones)
 
 print("Calculated Backbone Coverages")
-print("Coverages: ", coverages)
 
 topBackbones = [backbones[i] for i in sorted(range(len(coverages)), key=lambda i: coverages[i])[-2:]]
 
 print("Found Top-2 Backbones")
 print("Coverages of Top Backbones:", coverageOfBackbones(points, edges, topBackbones))
-
-print(topBackbones[0] == topBackbones[1])
 
 
 def drawGraphHelper(p, e, c):
