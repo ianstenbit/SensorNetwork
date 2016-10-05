@@ -92,8 +92,9 @@ def generatePoints(dist, nodes):
 def findEdges(nodes, rad, alg="Brute", mode="2D"):
 
     num_buckets = int(1/rad) - 1
+    
     if(mode == "Sphere"):
-        num_buckets = 4*num_buckets
+        num_buckets = 3*num_buckets
 
     if alg == "Brute":
         edges = []
@@ -120,24 +121,15 @@ def findEdges(nodes, rad, alg="Brute", mode="2D"):
         for x in range(len(nodes)):
             buckets[int(nodes[x][0]*num_buckets)][int(nodes[x][1]*num_buckets)].append(x)
 
+        print("Buckets:", sum([len(buckets[a][b]) for a in range(num_buckets) for b in range(num_buckets)]))
+
         for y in range(num_buckets):
 
-            yrange = []
-            if(y == 0):
-                yrange = [0,1]
-            elif(y == num_buckets - 1):
-                yrange = [y-1, y]
-            else:
-                yrange = [y-1, y, y+1]
+            yrange = [(y-1)%num_buckets, y, (y+1)%num_buckets]
 
             for x in range(num_buckets):
-                xrange = []
-                if(x == 0):
-                    xrange = [0,1]
-                elif(x == num_buckets - 1):
-                    xrange = [x-1, x]
-                else:
-                    xrange = [x-1, x, x+1]
+                
+                xrange = [(x-1)%num_buckets, x, (x+1)%num_buckets]
 
                 for itemA in buckets[y][x]:
                     for idy in yrange:
@@ -342,8 +334,8 @@ def coverageOfBackbones(points, edges, backbones):
             
 
 
-NUM_NODES = 16000
-AVG_DEGREE = 128
+NUM_NODES = 1000
+AVG_DEGREE = 32
 DISTRIBUTION = "Sphere" #Disk, Square, or Sphere
 
 
@@ -355,6 +347,10 @@ print("Generated Points")
 #print(points)
 
 edges = findEdges(points, radius, alg="Buckets", mode=DISTRIBUTION)
+edges2 = findEdges(points, radius, alg="Brute", mode=DISTRIBUTION)
+
+print(sum([len(x) for x in edges]))
+print(sum([len(x) for x in edges2]))
 
 print("Average edge count: ", average([len(x) for x in edges]))
 
@@ -385,11 +381,20 @@ topBackbones = [backbones[i] for i in(topN(coverages))]
 
 print("Found Top-2 Backbones")
 
+
+    
+# p = [points[x] for x in topColors[0]]
+# e = [edges[x] for x in topColors[0]]
+
+# d = [(x, y, distance(x, y)) if x !=y else 999 for x in p for y in p]
+# print(d)
+# print(radius)
+
 def setup():
     
 
-    #size(SCREEN_WIDTH, SCREEN_HEIGHT, P3D)
-    size(SCREEN_WIDTH, SCREEN_HEIGHT)
+    size(SCREEN_WIDTH, SCREEN_HEIGHT, P3D)
+    #size(SCREEN_WIDTH, SCREEN_HEIGHT)
         
     background(255)
     frameRate(30)
@@ -401,7 +406,7 @@ def draw():
     
     global rot
     
-    if(DISTRIBUTION == "Sphere" and len(points) <= 1000):
+    if(DISTRIBUTION == "Sphere" and len(points) <= 4000):
         drawGraph3D(points, edges, colors)
         rot = (rot[0], rot[1], rot[2] + PI/1000)
 
@@ -409,7 +414,7 @@ def draw():
 def mouseWheel(event):
     global location
     
-    location = (location[0], location[1], location[2] + SCREEN_WIDTH/20 * event.getCount())
+    location = (location[0], location[1], location[2] - SCREEN_WIDTH/20 * event.getCount())
                 
 def mouseDragged():
     
