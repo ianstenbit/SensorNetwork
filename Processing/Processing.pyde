@@ -344,13 +344,8 @@ radius = calculateRadius(NUM_NODES, AVG_DEGREE, DISTRIBUTION)
 points = generatePoints(DISTRIBUTION, NUM_NODES)
 
 print("Generated Points")
-#print(points)
 
 edges = findEdges(points, radius, alg="Buckets", mode=DISTRIBUTION)
-edges2 = findEdges(points, radius, alg="Brute", mode=DISTRIBUTION)
-
-print(sum([len(x) for x in edges]))
-print(sum([len(x) for x in edges2]))
 
 print("Average edge count: ", average([len(x) for x in edges]))
 
@@ -381,14 +376,6 @@ topBackbones = [backbones[i] for i in(topN(coverages))]
 
 print("Found Top-2 Backbones")
 
-
-    
-# p = [points[x] for x in topColors[0]]
-# e = [edges[x] for x in topColors[0]]
-
-# d = [(x, y, distance(x, y)) if x !=y else 999 for x in p for y in p]
-# print(d)
-# print(radius)
 
 def setup():
     
