@@ -14,35 +14,6 @@ def updateXRotation(xRotation, change):
     xRotation = xRotation + change
     return xRotation
 
-def removeMax(input):
-    
-    m = max(input)
-    ret = []
-    
-    for item in input:
-        if item != m:
-            ret.append(item)
-            
-    return ret
-
-def argmax(input):
-    m = max(input)
-    ret = []
-    for x in range(len(input)):
-        if(input[x] == m):
-            ret.append(x)
-    return ret
-
-def topN(ls, n=2):
-    
-    ret = []
-    while(len(ret) < n):
-        ret += argmax(ls)
-        ls = removeMax(ls)
-        
-    return ret[0:n]
-    
-
 def distance(x, y):
     return sqrt(sum([(x[i]-y[i])**2 for i in range(len(x))]))
          
@@ -335,9 +306,9 @@ def coverageOfBackbones(points, edges, backbones):
             
 
 
-NUM_NODES = 16000
-AVG_DEGREE = 32
-DISTRIBUTION = "Disk" #Disk, Square, or Sphere
+NUM_NODES = 1000
+AVG_DEGREE = 8
+DISTRIBUTION = "Square" #Disk, Square, or Sphere
 RENDER_MODE = 0
 
 
@@ -373,11 +344,15 @@ print("Generated Backbones")
 coverages = coverageOfBackbones(points, edges, backbones)
 
 print("Calculated Backbone Coverages")
+print("Coverages: ", coverages)
 
-topBackbones = [backbones[i] for i in(topN(coverages))]
+topBackbones = [backbones[i] for i in sorted(range(len(coverages)), key=lambda i: coverages[i])[-2:]]
 
 print("Found Top-2 Backbones")
 print("Coverages of Top Backbones:", coverageOfBackbones(points, edges, topBackbones))
+
+print(topBackbones[0] == topBackbones[1])
+
 
 def drawGraphHelper(p, e, c):
     
@@ -435,4 +410,3 @@ def keyPressed():
     
     RENDER_MODE = int(key) %NUM_RENDER_MODES
     NEED_2D_RENDER_UPDATE = True
-    print(RENDER_MODE, NEED_2D_RENDER_UPDATE)
