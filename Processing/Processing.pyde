@@ -377,7 +377,7 @@ def drawGraphHelper(p, e, c):
     global NEED_2D_RENDER_UPDATE
     
     if(DISTRIBUTION == "Sphere" and len(points) <= 4000):
-        #rot = (rot[0], rot[1], rot[2] + PI/1000)
+        rot = (rot[0]+PI/1000, rot[1], rot[2])
         drawGraph3D(p, e, c)
     elif(DISTRIBUTION != "Sphere" and NEED_2D_RENDER_UPDATE):
         NEED_2D_RENDER_UPDATE = False
