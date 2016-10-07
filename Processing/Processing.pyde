@@ -4,7 +4,7 @@ import sys
 SCREEN_WIDTH = 750
 SCREEN_HEIGHT = 750
 
-rot = (0,0,0)
+rot = (0,0,PI/4)
 location = (0,0,0)
 
 NUM_RENDER_MODES = 10
@@ -195,10 +195,10 @@ def drawGraph3D(points, edges, colors):
     
         camera(SCREEN_WIDTH/2 + location[0], SCREEN_HEIGHT/2 + location[1], -2*SCREEN_WIDTH  + location[2], 0, 0, 0, 1, 1, 1)     
                 
-        rotateY(rot[0]*cos(rot[2]))
-        rotateX(rot[1]*sin(rot[2]))
-        rotateX(rot[2])
-        rotateY(rot[2])
+        rotateZ(rot[2])
+        rotateY(-1*rot[1])
+        rotateZ(-1*rot[0])
+
         
     
         translate((p[0])*SCREEN_WIDTH, (p[1])*SCREEN_WIDTH, (p[2])*SCREEN_WIDTH)
@@ -211,44 +211,7 @@ def drawGraph3D(points, edges, colors):
             line(0,0,0, (node2[0]-p[0])*SCREEN_WIDTH, (node2[1] - p[1])*SCREEN_HEIGHT, (node2[2] - p[2])*SCREEN_WIDTH)
         
         popMatrix()
-        
 
-def drawGraphWithBackbone(points, edges, colors, backbone):
-    
-    strokeWeight(0.1)
-    
-    col1 = colors[backbone[0]]
-    
-    for i in range(len(points)):
-        fill(0)
-        ellipse(points[i][0]*SCREEN_WIDTH, points[i][1]*SCREEN_HEIGHT, 5, 5)
-    
-    for i in backbone:
-            
-        if(colors[i] == col1):
-            fill(0,0,255)
-        else:
-            fill(255,0,0)
-            
-        ellipse(points[i][0]*SCREEN_WIDTH, points[i][1]*SCREEN_HEIGHT, 10, 10)
-    
-        for j in edges[i]:
-            line(points[i][0]*SCREEN_WIDTH, points[i][1]*SCREEN_HEIGHT, points[j][0]*SCREEN_WIDTH, points[j][1]*SCREEN_HEIGHT)
-
-def drawGraphWithSingleColor(points, edges, col):
-    
-    strokeWeight(0.1)
-    print(col)
-    
-    for i in col:
-        
-        fill(0)
-        ellipse(points[i][0]*SCREEN_WIDTH, points[i][1]*SCREEN_HEIGHT, 5, 5)
-    
-        for j in edges[i]:
-            if(j in col):
-                print("Well, this is bad.")
-                line(points[i][0]*SCREEN_WIDTH, points[i][1]*SCREEN_HEIGHT, points[j][0]*SCREEN_WIDTH, points[j][1]*SCREEN_HEIGHT)
 
 def getListsByColor(colors):
     
@@ -414,7 +377,7 @@ def drawGraphHelper(p, e, c):
     global NEED_2D_RENDER_UPDATE
     
     if(DISTRIBUTION == "Sphere" and len(points) <= 4000):
-        rot = (rot[0], rot[1], rot[2] + PI/1000)
+        #rot = (rot[0], rot[1], rot[2] + PI/1000)
         drawGraph3D(p, e, c)
     elif(DISTRIBUTION != "Sphere" and NEED_2D_RENDER_UPDATE):
         NEED_2D_RENDER_UPDATE = False
@@ -442,7 +405,7 @@ def draw():
     elif(RENDER_MODE in [4, 5]):
         drawGraphHelper(points, backboneEdges[RENDER_MODE-4], colors)
     elif(RENDER_MODE in [6,7,8,9]):
-        drawGraphHelper([points[x] for x in topColors[RENDER_MODE-6]], [[] for x in topColors[RENDER_MODE-4]], colors)
+        drawGraphHelper([points[x] for x in topColors[RENDER_MODE-6]], [[] for x in topColors[RENDER_MODE-6]], colors)
     
 def mouseWheel(event):
     global location
@@ -453,8 +416,8 @@ def mouseDragged():
     
     global rot
     
-    yRotation = mouseY*PI/500
-    xRotation = mouseX*PI/500
+    yRotation = mouseY*PI/500*sin(rot[2])
+    xRotation = mouseX*PI/500*cos(rot[2])
     
     rot = (xRotation, yRotation, rot[2])
     
