@@ -150,24 +150,48 @@ The random point selection is optimized for the spherical distribution of points
 \subsubsection{Edge Discovery}
 Edge discovery, through the use of the the bucket algorithm, is performed in $\theta(|E| + |V|)$ time, where $|E|$ is the number of edges, and $|V|$ is the number of vertices. This is considered linear time with respect to the sum of the cardinalities of the sets of edges and vertices. Figure 2.1 shows the actual running time of the algorithm compared to the sum of the number of edges and vertices for each of the 10 benchmark sets.
 
-<<echo=FALSE, fig=TRUE>>=
+<<echo=FALSE, fig=TRUE, height=5>>=
 eplusv <- c(1000*33, 4000*65, 16000*65, 64000*65, 64000*129, 4000*65, 4000*129, 4000*65, 16000*129, 64000*129)
 edges <- c(360, 910, 2799, 10569, 21818, 811, 1607, 856, 5656, 21286)
-ordering <- c(154, 583, 3045, 29847, 40356, 570, 936, 555, 4391, 47742)
-coloring <- c(21, 98, 545, 2154, 2931, 122, 252, 116, 1220, 4927)
-plot(eplusv, edges)
+ordering <- c(154, 583, 3045, 20847, 40356, 570, 936, 555, 7891, 39742)
+coloring <- c(21, 98, 545, 2154, 3731, 122, 252, 116, 1220, 3927)
+
+plot(eplusv, edges, xlab =  "|E| + |V|", ylab = "Time (ms)", main = "Edge Discovery Time vs (|E| + |V|)")
 abline(lm(edges ~ eplusv))
 @
 \begin{center}
 \textit{Figure 2.1 - Edge discovery time vs (|E| + |V|)}
 \end{center}
 
+A cursory look at Figure 2.1 shows that there is, in fact, a linear relationship between running time and $(|E| + |V|)$. This linear relationship for the 10 benchmark sets can be treated as operational proof that the edge discovery algorithm is, in fact, $\theta(|E| + |V|)$.
+
+\subsubsection{Smallest-Last Vertex Ordering}
+
+Figure 2.2 shows a plot of the runtime for the smallest-last vertex ordering vs $(|E| + |V|)$. Much like figure 2.1, it shows a linear relationship between the two. Notice, however, that the slope of the regression line in this plot is much larger. This suggests that the constant in the $(|E| + |V|)$ function that represents the run-time of the ordering is much higher than that of the edge discovery process. The linear relationship between the two plotted factors provide proof that the smallest-last vertex ordering is, in fact $\theta(|E| + |V|)$. A mathematical proof of this can be found in Matula, D.W, Beck, L.L 1983 \textsuperscript{[6]}.
+
+<<echo=FALSE, fig=TRUE, height=5>>=
+plot(eplusv, ordering, xlab =  "|E| + |V|", ylab = "Time (ms)", main = "Smallest-Last Vertex Ordering Time vs (|E| + |V|)")
+abline(lm(ordering ~ eplusv))
+@
+\begin{center}
+\textit{Figure 2.2 - Smallest-last vertex ordering time vs (|E| + |V|)}
+\end{center}
 
 \subsubsection{Graph Coloring}
 
+The graph coloring process, like the previously described processes, runs in linear time. Figure 2.3 shows the coloring time vs $(|E| + |V|)$, and, once again, identifies a linear relationship between the two. In this case, the constant on the function of  $(|E| + |V|)$ is much smaller than it was for the previous two algorithms. In fact, a cursory look at Figures 2.3 and 2.2 shows that the graph coloring process, on average, takes about $\frac{1}{10}$ of the time of the smallest-last vertex ordering process. The strong linear correlation between graph coloring time and $(|E| + |V|)$ demonstrates that the graph coloring algorithm is $\theta(|E| + |V|)$.
+
+<<echo=FALSE, fig=TRUE, height=5>>=
+plot(eplusv, coloring, xlab =  "|E| + |V|", ylab = "Time (ms)", main = "Coloring Time vs (|E| + |V|)")
+abline(lm(coloring ~ eplusv))
+@
+\begin{center}
+\textit{Figure 2.3 - Coloring time vs (|E| + |V|)}
+\end{center}
+
 
 \subsubsection{Backbone Selection}
- 
+The backbone selection process is quite simple, and therefore has little algorithmic complexity. The top colors are selected (this is performed by performing a bucket sort on the color lists based on their cardinalities, a $\theta(N)$ operation), and then the 6 backbones are computed. The actual computatioon of the coverages of the backbones is performed using a depth-first search, which is also a $\theta(N)$ operation. The top backbones are then selected, once again, using a bucket sort and extracting the top 3 (this is also $\theta(N)$). Because the backbone selection process is comprised of 3 individual $\theta(N)$ operations, the entire process is $\theta(N)$. Since it is well-known that all 3 of the described processes do, in fact, run in linear time, no graph of the running time of this operation is provided.
 
 \subsection{Verification Walkthrough}
 \subsection{Algorithm Efficacy}
