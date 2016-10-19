@@ -320,9 +320,9 @@ def getBackboneEdges(edges, backbones):
     return ls    
 
 
-NUM_NODES = 1000
-AVG_DEGREE = 32
-DISTRIBUTION = "Square" #Disk, Square, or Sphere
+NUM_NODES = 64000
+AVG_DEGREE = 128
+DISTRIBUTION = "Disk" #Disk, Square, or Sphere
 RENDER_MODE = 0
 
 
@@ -334,19 +334,28 @@ points = generatePoints(DISTRIBUTION, NUM_NODES)
 
 print("Generated Points")
 
+tbefore = millis()
 edges = findEdges(points, radius, alg="Buckets", mode=DISTRIBUTION)
+tafter = millis()
 
 print("Average edge count: ", average([len(x) for x in edges]))
+print("Took ", tafter-tbefore, " ms.")
 
 print("Total Edge count: ", sum([len(x) for x in edges])/2)
 
+tbefore = millis()
 order = smallestLastOrdering(edges)
+tafter = millis()
 
 print("Generated Smallest-Last Ordering")
+print("Took ", tafter-tbefore, " ms.")
 
+tbefore = millis()
 colors = generateColoring(order, edges)
+tafter = millis()
 
 print("Generated Coloring")
+print("Took ", tafter-tbefore, " ms.")
 print("Number of Colors:", max(colors)+1)
 
 colorLists = getListsByColor(colors)

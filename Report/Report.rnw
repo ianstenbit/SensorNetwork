@@ -136,10 +136,39 @@ The process of random point selection is slightly different for each of the dist
 Edge discovery is performed using a bucket strategy, so that the algorithm can run in linear time (this is discussed in more detail in the upcoming \textit{Algorithm Engineering} section). In order to detect edges, the points are partitioned into a matrix of $N^2$ buckets, where $N=\frac{1}{R}$, such that the indeces of the bucket in which a point resides is an approximation of the actual location of the point in 2 dimensions. This is performed using a linear pass through the points in the points list. After that, every point in every bucket is compared to every other point in the bucket, as well as all points in adjacent buckets. This guarantees that all edges are found without directly comparing every node to every other node, which is an $O(N^2)$ algorithm.
 
 \subsubsection{Graph Coloring}
+The graph coloring algorithm utilizes a smallest-last vertex ordering to perform coloring in linear time. The smallest-last vertex ordering is performed in linear time per the algorithm described in Matula, D.W, Beck, L.L 1983 \textsuperscript{[6]}. Once the smallest-last vertex ordering has been computed, the coloring is done by iterating through the smalles-last vertex ordering and, at each point, assigning the first available color to the point on the graph by looking at the colors of points adjacent to the point in question. This is a non-heuristic graph coloring algorithm and is guaranteed to find a minimal number of colors on the graph \textsuperscript{[6]}. Verification of the linear-time claim for this algorithm can be found in the upcoming \textit{Algorithm Engineering} section.
 
 \subsubsection{Backbone Selection}
+Once the graph coloring has been performed, the points in the graph are partitioned into $k$ disjoint sets of point, where $k$ is the number of colors, and the items in each set are all of the same color. The 4 sets with the highest cardinality are selected, and the 6 possible combinations of those 4 colors are identified as possible backbones. For each of those backbones, the coverage is calculated by identifying the number of vertices in the major component of the resulting graph when only the edges which include an item from the backbone as a vertex are included in the graph. Then, the top 3 backbones based on coverage are selected and used as the backbones. 
 
 \subsection{Algorithm Engineering}
+Each part of the algorithm is optimized for performance. The various optimizations that were used are explained below.
+
+\subsubsection{Random Point Selection}
+The random point selection is optimized for the spherical distribution of points by projecting all points in a random cube of space onto the surface of the sphere. This guarantees that no points are wasted, or thrown away. For the square distribution of points, it is guaranteed that no points will be thrown away because the range of the possible results of the random location is equal to the range of possible locations on the unit square. The unit disk is slightly sub-optimal when compared to the other distributions, as it occasionally throws away points that are generated and fall outside of a unit disk. However, only approximately $\frac{1}{4}$ of points are thrown away, so the algorithm, on average still runs in linear time with respect to the number of vertices, just with a slighly higher constant.
+
+\subsubsection{Edge Discovery}
+Edge discovery, through the use of the the bucket algorithm, is performed in $\theta(|E| + |V|)$ time, where $|E|$ is the number of edges, and $|V|$ is the number of vertices. This is considered linear time with respect to the sum of the cardinalities of the sets of edges and vertices. Figure 2.1 shows the actual running time of the algorithm compared to the sum of the number of edges and vertices for each of the 10 benchmark sets.
+
+<<echo=FALSE, fig=TRUE>>=
+eplusv <- c(1000*33, 4000*65, 16000*65, 64000*65, 64000*129, 4000*65, 4000*129, 4000*65, 16000*129, 64000*129)
+edges <- c(360, 910, 2799, 10569, 21818, 811, 1607, 856, 5656, 21286)
+ordering <- c(154, 583, 3045, 29847, 40356, 570, 936, 555, 4391, 47742)
+coloring <- c(21, 98, 545, 2154, 2931, 122, 252, 116, 1220, 4927)
+plot(eplusv, edges)
+abline(lm(edges ~ eplusv))
+@
+\begin{center}
+\textit{Figure 2.1 - Edge discovery time vs (|E| + |V|)}
+\end{center}
+
+
+\subsubsection{Graph Coloring}
+
+
+\subsubsection{Backbone Selection}
+ 
+
 \subsection{Verification Walkthrough}
 \subsection{Algorithm Efficacy}
 
@@ -149,11 +178,5 @@ Edge discovery is performed using a bucket strategy, so that the algorithm can r
 
 
 
-%Notes: 
-%@TODO: Switch all figures to include fig number and refs
-%Mapping by state in USA: https://gist.github.com/cdesante/4252133 for mapping USA
-%State-to-school map: http://ope.ed.gov/accreditation/GetDownLoadFile.aspx
-%Data Source: https://www.kaggle.com/mylesoneill/world-university-rankings
-%Use this reference: http://colleges.usnews.rankingsandreviews.com/best-colleges/smu-3613
 
               
