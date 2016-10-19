@@ -133,9 +133,10 @@ The process of random point selection is slightly different for each of the dist
 \end{itemize}
 
 \subsubsection{Edge Discovery}
-Edge discovery is performed using a bucket strategy, so that the algorithm can run in linear time (this is discussed in more detail in the upcoming \textit{Algorithm Engineering} section). 
+Edge discovery is performed using a bucket strategy, so that the algorithm can run in linear time (this is discussed in more detail in the upcoming \textit{Algorithm Engineering} section). In order to detect edges, the points are partitioned into a matrix of $N^2$ buckets, where $N=\frac{1}{R}$, such that the indeces of the bucket in which a point resides is an approximation of the actual location of the point in 2 dimensions. This is performed using a linear pass through the points in the points list. After that, every point in every bucket is compared to every other point in the bucket, as well as all points in adjacent buckets. This guarantees that all edges are found without directly comparing every node to every other node, which is an $O(N^2)$ algorithm.
 
 \subsubsection{Graph Coloring}
+
 \subsubsection{Backbone Selection}
 
 \subsection{Algorithm Engineering}
