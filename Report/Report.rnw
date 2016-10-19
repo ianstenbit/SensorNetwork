@@ -93,7 +93,51 @@ One final consideration with respect to the performance of the algorithm is that
 \chapter{Wireless Sensor Network Backbone Report}
 \section{Reduction to Practice}
 \subsection{Data Structure Design}
+A number of data structures are utilized in the process of generating points, computing edges, coloring the graph, and identifying backbones. They are, in order of appearance in the algorithm:
+\begin{itemize}
+\item Points Container
+\item Adjacency List
+\item Colors
+\item Backbones
+\end{itemize}
+
+\subsubsection{Points Container}
+The points container is a simple 2D python list, where each list at index $i$ in the main list is a set of coordinates for a point. Therefore, if the points container is an $MxN$ matrix, then there are $M$ points in an $N$-dimensional space. The generalization of a 2D list allows for $N$-dimensional points to be used at any point in the algorithm, since the 2-or-3-dimensionality of the points is not ever explicitly required. This becomes very useful when switching from the Disk and Square distribution to the Spherical distribution.
+
+\subsubsection{Adjacency List}
+The adjacency list, like the points container, is a simple 2D python list. However, it is not a rectangular matrix, like the points container. The list at index $i$ in the main list represents a list of the indeces of nodes in the points container which are connected to the node at index $i$ in the points container. For example, if the 5th list in in the adjacency list contained a 1, a 2, and a 7, then the node whose location is encoded by the 5th list in the points container would be connected to the nodes at indeces 1, 2, and 7 of the points container. From this point forward, the set of coordinates at the $i$th index of the points container will be refered to as the $i$th point.
+
+\subsubsection{Colors}
+To store the colors of the points, a 1D python list is used which is parallel to the points container. At index $i$ in the colors list sits a value representing the color of the $i$th point.
+
+\subsubsection{Backbones}
+The set of backbones is stored using a simple 2D python list. The $i$th element in the 2D list represents the $i$th backbone, and contains a list of the indeces of the nodes in the $i$th backbone. For example, if the 3rd list in the backbone set had a 1, a 3, and a 5, then the 3rd backbone would be the set of points {1,3,5}.
+
+
 \subsection{Algorithm Description}
+The overall backbone selection algorithm can be split up into a number of parts, each of which will be explored in further sections:
+\begin{itemize}
+\item Random Point Selection
+\item Edge Discovery
+\item Graph Coloring
+\item Backbone Selection
+\end{itemize}
+
+\subsubsection{Random Point Selection}
+The process of random point selection is slightly different for each of the distributions tested in this report:
+
+\begin{itemize}
+\item \textbf{Unit Square}: For the unit square distribution, random point selection is performed by computing two random values between 0 and 1 and using those values as the x and y coordinates of the point. This is iterated until the desired number of points is produced.
+\item \textbf{Unit Disk}: For the unit disk distribution, the same procedure from the unit square is used (where the random values can fall between -1 and 1, in this case); however, if points fall outside of a unit disk ($x^2 + y^2 > 1$), then the x and y coordinates are re-randomized until they do fall within the disk. The process still ensures that the desired number of points is produced.
+\item \textbf{Unit Sphere}: For the unit sphere distribution, three random values between -1 and 1 are chosen and assigned to the x, y, and z coordinates of the point. The point is then projected onto the surface of the sphere by dividing each of the 3 coordinates by $\sqrt{x^2 + y^2 + z^2}$.
+\end{itemize}
+
+\subsubsection{Edge Discovery}
+Edge discovery is performed using a bucket strategy, so that the algorithm can run in linear time (this is discussed in more detail in the upcoming \textit{Algorithm Engineering} section). 
+
+\subsubsection{Graph Coloring}
+\subsubsection{Backbone Selection}
+
 \subsection{Algorithm Engineering}
 \subsection{Verification Walkthrough}
 \subsection{Algorithm Efficacy}
