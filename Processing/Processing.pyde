@@ -322,11 +322,13 @@ def getBackboneEdges(edges, backbones):
 
 NUM_NODES = 1000
 AVG_DEGREE = 32
-DISTRIBUTION = "Sphere" #Disk, Square, or Sphere
+DISTRIBUTION = "Square" #Disk, Square, or Sphere
 RENDER_MODE = 0
 
 
 radius = calculateRadius(NUM_NODES, AVG_DEGREE, DISTRIBUTION)
+
+print("Radius: ", radius)
 
 points = generatePoints(DISTRIBUTION, NUM_NODES)
 
@@ -335,6 +337,8 @@ print("Generated Points")
 edges = findEdges(points, radius, alg="Buckets", mode=DISTRIBUTION)
 
 print("Average edge count: ", average([len(x) for x in edges]))
+
+print("Total Edge count: ", sum([len(x) for x in edges])/2)
 
 order = smallestLastOrdering(edges)
 
@@ -362,7 +366,12 @@ print("Calculated Backbone Coverages")
 topBackbones = [backbones[i] for i in sorted(range(len(coverages)), key=lambda i: coverages[i])[-2:]]
 
 print("Found Top-2 Backbones")
-print("Coverages of Top Backbones:", coverageOfBackbones(points, edges, topBackbones))
+
+topCoverages = coverageOfBackbones(points, edges, topBackbones)
+
+print("Coverages of Top Backbones:", topCoverages)
+
+print("Percent Coverage:", [(x+0.0)/NUM_NODES for x in topCoverages])
 
 backboneEdges = getBackboneEdges(edges, topBackbones)
 
@@ -387,8 +396,8 @@ def drawGraphHelper(p, e, c):
 def setup():
     
 
-    size(SCREEN_WIDTH, SCREEN_HEIGHT, P3D)
-    #size(SCREEN_WIDTH, SCREEN_HEIGHT)
+    #size(SCREEN_WIDTH, SCREEN_HEIGHT, P3D)
+    size(SCREEN_WIDTH, SCREEN_HEIGHT)
         
     background(255)
     frameRate(30)

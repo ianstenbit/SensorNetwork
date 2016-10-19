@@ -30,47 +30,74 @@
 
 \chapter{Executive Summary}
 \section{Introduction}
-Widely distributed networks of sensors which relay information to one another, called sensor networks, are an area of interest for many natural and computer scientists. Because inexpensive sensors can easily be distributed around a physical area, sensor networks are a viable strategy for a wide variety of applications. For example, if one were interested in measuring rainfall over the surface of the earth, a globally-distributed network of rainfall-measuring sensors could be used. Connecting these sensors in an efficient and fault-tolerant way in a wireless environment is a difficult problem. In order to minimize energy consumption for the overall network of sensors and maximize node availability across the network, it is useful to define a set of nodes, called a backbone, which are responsible for transmitting data across the entire network \textsuperscript{[1]}.
+Widely distributed networks of sensors which relay information to one another, called sensor networks, are an area of interest for many natural and computer scientists. Because inexpensive sensors can easily be distributed around a physical area, sensor networks are a viable strategy for a wide variety of applications. For example, if one were interested in measuring rainfall over the surface of the earth, a globally-distributed network of rainfall-measuring sensors could be used. Connecting these sensors in an efficient and fault-tolerant way in a wireless environment is a difficult problem \textsuperscript{[1],[2]}. In order to minimize energy consumption for the overall network of sensors and maximize node availability across the network, it is useful to define a set of nodes, called a backbone, which are responsible for transmitting data across the entire network. One practical strategy for computing backbones is using graph coloring algorithms \textsuperscript{[3],[4],[5]}
 
-In this report, we present an implementation of a graph-coloring algorithm to compute a high-coverage backbone for a wireless sensor network. The algorithm, given an randomized distribution of points (which represent sensors in a physical space) identifies a subset of points which provide maximal connectivity to the remaining points. This computation is performed in linear time with respect to the sum of the number of points and the number of connections between points. A smallest-last vertex ordering is used to compute a coloring of the graph, and high-frequency pairs of colors are evaluated as network backbones. The resulting networks, along with their backbones are visualized for a unit square distribution, a unit disk distribution, and a spherical distribution. Table \ref{summaryTable} shows the performance of the algorithm for a set of benchmark cases.
+In this report, we present an implementation of a graph-coloring algorithm to compute a high-coverage backbone for a wireless sensor network. The algorithm, given an randomized distribution of points (which represent sensors in a physical space) identifies a subset of points which provide maximal connectivity to the remaining points. This computation is performed in linear time with respect to the sum of the number of points and the number of connections between points. A smallest-last vertex ordering is used to compute a coloring of the graph, and high-frequency pairs of colors are evaluated as network backbones. The resulting networks, along with their backbones are visualized for a unit square distribution, a unit disk distribution, and a spherical distribution. Table \ref{summaryTable} shows the performance of the algorithm for a set of benchmark cases. The algorithm we present performs well against a set of proposed benchmarks.
 
-
-\begin{table}
+\begin{table}[H]
 \centering
 \begin{tabular}{| c | c | c | c | c | c | c |}
 \hline
 ID & Distribution  & $N_{total}$ & E & R & $N_{covered}$ & Percent Coverage\\
 \hline
-1 & Square & 1000 & & & & \\
-2 & Square & 4000 & & & &\\
-3 & Square & 16000 & & & &\\
-4 & Square & 64000 & & & &\\
-5 & Square & 64000 & & & &\\
-6 & Disk & 4000 & & & &\\
-7 & Disk & 4000 & & & &\\
-8 & Sphere & 4000 & & & &\\
-9 & Sphere & 16000 & & & &\\
-10 & Sphere & 64000 & & & &\\
+1 & Square & 1000 & 32 & 0.101 & 992 & 0.992\\
+2 & Square & 4000 & 64 & 0.071 & 3993 & 0.998\\
+3 & Square & 16000 & 64 & 0.036 & 15976 & 0.998\\
+4 & Square & 64000 & 64 & 0.018 & 63840 & 0.998\\
+5 & Square & 64000 & 128 & 0.025 & 63960 & 0.999\\
+6 & Disk & 4000 & 64 & 0.063 & 3992 & 0.998\\
+7 & Disk & 4000 & 128 & 0.089 & 3995 & 0.999\\
+8 & Sphere & 4000 & 64 & 0.253 & 3988 & 0.997\\
+9 & Sphere & 16000 & 128 & 0.179 & 15950 & 0.996\\
+10 & Sphere & 64000 & 128 & 0.089 & 61215 & 0.957\\
 \hline
 \end{tabular}
 \caption{A summary of the results of each of the 10 benchmark data sets}
 \label{summaryTable}
 \end{table}
 
-To acheive linear time complexity for backbone selection, a number of operations has to be performed in linear time. Most non-trivially, the smallest last first vertex ordering must be computed in linear time. The algorithm used to achieve this is described in Matula, D.W, Beck, L.L 1983 \textsuperscript{[2]}.
+To acheive linear time complexity for backbone selection, a number of operations has to be performed in linear time. Most non-trivially, the smallest last first vertex ordering must be computed in linear time. The algorithm used to achieve this is described in Matula, D.W, Beck, L.L 1983 \textsuperscript{[6]}.
 
 
 \section{Programming Environment}
 
-\section{References}
-[1] Mahfoudh, Chalhoub, Minet, Misson, Amdouni, Node Coloring and Color Conflict Detection in Wireless Sensor Networks, \textit{Future Internet}, 2010, 469-504
+The processes of random point generation, edge computation, and graph coloring are performed using Python 3, and use the Collections package from Python \textsuperscript{[7]}. All computations were performed on one of two test machines. The first machine is a 2015 MacBook Pro running MacOS Sierra with a 2.5Ghz Intel I7 processor and 16GB of RAM. The second machine, which was used only for testing, and not in the generation of this final report, is a custom-built tower running Ubuntu 14.04 with an overclocked Intel I7 4770k processor and 32GB of RAM. However, a workhorse machine such as this one is not required to reproduce the output of our analyses. 
 
-[2] Matula, D.W, Beck, L.L, Smallest-Last Ordering and Clustering and Graph Coloring Algorithms, \textit{Journal of the Association for Computing Machinery}, July 1983, 421-427
+Beyond the Python standard libary (Collections), no additional Python packages or 3rd party code were used. However, rendering was performed using the Processing framework \textsuperscript{[8]}. This framework provides a simple interface for rendering 2D and 3D point distributions, as well as connections between those points.
+
+When the largest benchmark test was performed, the process consumed 100\% of available CPU clock cycles (it is single threaded, so this is the maximum possible usage), and 1.24GB of RAM. The benchmark in question is 64000 nodes with an average degree of 128 in a spherical distribution. Visualizing this benchmark would be computationally infeasible, as a significant amount of VRAM would be required. Considering the considerable size of the benchmark dataset, 1.24GB of RAM is a reasonable memory expenditure.
+
+One final consideration with respect to the performance of the algorithm is that the entire process is run in Python inside the Processing environment, to make interfacing with the graphics library more simple. This adds considerable overhead to the total time it takes to perform computations on the datasets. However, because this is a constant overhead, this will not interfere with the measurements of computation time for the benchmark datasets relative to eachother.
+
+
+\section{References}
+
+\quad [1] Mahfoudh, Chalhoub, Minet, Misson, Amdouni, Node Coloring and Color Conflict Detection in Wireless Sensor Networks, \textit{Future Internet}, 2010, 469-504\\
+
+[2] Akyildiz, Ian F., et al. "Wireless sensor networks: a survey." Computer networks 38.4 (2002): 393-422. \\
+
+[3] Clark, Brent N., Charles J. Colbourn, and David S. Johnson. "Unit disk graphs." Discrete mathematics 86.1-3 (1990): 165-177. \\
+
+[4] Cardei, Mihaela, et al. "Wireless sensor networks with energy efficient organization." Journal of Interconnection Networks 3.03n04 (2002): 213-229. \\
+
+[5] Gandham, Shashidhar, Milind Dawande, and Ravi Prakash. "Link scheduling in wireless sensor networks: distributed edge-coloring revisited." Journal of Parallel and Distributed Computing 68.8 (2008): 1122-1134. \\
+
+[6] Matula, D.W, Beck, L.L, Smallest-Last Ordering and Clustering and Graph Coloring Algorithms, \textit{Journal of the Association for Computing Machinery}, July 1983, 421-427\\
+
+[7] Python Software Foundation. Python Language Reference, version 3.4. Available at http://www.python.org\\
+
+[8] Reas, C. and Fry, B. Processing: programming for the media arts (2006). Journal AI and Society, volume 20(4), pages 526-538, Springer
 \newpage
 \setcounter{section}{0}
 
 \chapter{Wireless Sensor Network Backbone Report}
 \section{Reduction to Practice}
+\subsection{Data Structure Design}
+\subsection{Algorithm Description}
+\subsection{Algorithm Engineering}
+\subsection{Verification Walkthrough}
+\subsection{Algorithm Efficacy}
+
 \section{Benchmark Results}
 
 \end{document}
