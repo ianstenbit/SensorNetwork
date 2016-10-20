@@ -202,15 +202,138 @@ For the graph shown in Figure 2.4, the smallest-last ordering, coloring, and bac
 \textit{Figure 2.4 - Adjacency list and visualization of reference graph for verification}
 \end{center}
 
+
+\subsubsection{Smallest-Last Ordering}
 To perform the smallest-last ordering, a set of degree buckets will be used. These will be visualized using a table:
 
-\begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|}
+\begin{center}
+\begin{tabular}{|l|c|c|c|c|c|c|c|c|c|}
 \hline
-Degree & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11\\
+Degree & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10\\
 \hline
-Vertices & \\
+Vertices & 12,17 & 18 & 3,5,6 & 1,4,10,16 & 9,13,19 & & 7,14 & 0,2,8 & 11,15  \\
 \hline
 \end{tabular}
+
+\textit{Current Ordering: \{\}}
+\end{center}
+
+The first node to be added to the ordering is 12 (this is chosen arbitrarily between 12 and 17, as they're tied for the number of vertices adjacent to them). After removing the 12, the edge counts for all nodes adjacent to count decrease.
+
+\begin{center}
+\begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|}
+\hline
+Degree & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10\\
+\hline
+Vertices & 17 & & 3,18 & 5,6 & 1,4,10,16 & 9,13,19 & & 7,14 & 0,2,8 & 11,15  \\
+\hline
+\end{tabular}
+
+\textit{Current Ordering: \{12\}}
+\end{center}
+
+The following node to be removed is 17. The remaining iterations are shown below.
+
+\begin{center}
+\begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|}
+\hline
+Degree & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10\\
+\hline
+Vertices &  & 3 & 18 & 5,6 & 1,4,10,16 & 9,13,19 & & 7,14 & 0,2,8 & 11,15  \\
+\hline
+\end{tabular}
+
+\textit{Current Ordering: \{12, 17\}}
+\end{center}
+
+\begin{center}
+\begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|}
+\hline
+Degree & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10\\
+\hline
+Vertices &  &  & 18 & 5,6 & 1,4,10,16 & 9,13,19 & & 2,7,14 & 0,8 & 11,15  \\
+\hline
+\end{tabular}
+
+\textit{Current Ordering: \{12, 17, 3\}}
+\end{center}
+
+\begin{center}
+\begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|}
+\hline
+Degree & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10\\
+\hline
+Vertices &  &  & 5 & 1,6 & 4,9,10,16 & 13,19 & & 2,7,14 & 0,8 & 11,15  \\
+\hline
+\end{tabular}
+
+\textit{Current Ordering: \{12, 17, 3, 18\}}
+\end{center}
+
+\begin{center}
+\begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|}
+\hline
+Degree & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10\\
+\hline
+Vertices &  &  &  & 1,6,9 & 4,10,16 & 13,19 & & 1,2,7,8,14 & 0 & 11,15  \\
+\hline
+\end{tabular}
+
+\textit{Current Ordering: \{12, 17, 3, 18, 5\}}
+\end{center}
+
+\begin{center}
+\begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|}
+\hline
+Degree & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10\\
+\hline
+Vertices &  &  & 9 & 6 & 4,10,16 & 8,13,19 & & 1,2,7,14 & 0,15 & 11  \\
+\hline
+\end{tabular}
+
+\textit{Current Ordering: \{12, 17, 3, 18, 5, 1\}}
+\end{center}
+
+\begin{center}
+\begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|}
+\hline
+Degree & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10\\
+\hline
+Vertices &  &  &  & 6 & 4,8,10,16,19 & 13 & & 1,2,7,14,15 & 0 & 11  \\
+\hline
+\end{tabular}
+
+\textit{Current Ordering: \{12, 17, 3, 18, 5, 1, 9\}}
+\end{center}
+
+\begin{center}
+\begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|}
+\hline
+Degree & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9\\
+\hline
+Vertices &  &  &  & 10 & 4,8,16,19 & 2,13,14 & & 1,7,15 & 0,11  \\
+\hline
+\end{tabular}
+
+\textit{Current Ordering: \{12, 17, 3, 18, 5, 1, 9, 6\}}
+\end{center}
+
+This process continues until the final ordering is: \{12, 17, 3, 18, 5, 1, 9, 6, 10, 4, 19, 16, 13, 15, 14, 11, 8, 7, 2, 0\}. This list is then reversed for the coloring process.
+
+\subsubsection{Graph Coloring}
+The smallest-last ordering is traversed, and every node is assigned a color when it is reached in the list. The color is assigned by exploring the list of neighbors to a node and seeing which colors which already exist in the graph don't exist in the set of neighbors. If no such color exists, then a new color is added and assigned to the current node. Figure 2.4 shows the first few iterations of the coloring. The final colored graph is shown in Figure 2.3.
+
+\includegraphics[width=5cm, height=5cm]{verification2}
+\includegraphics[width=5cm, height=5cm]{verification3}
+\includegraphics[width=5cm, height=5cm]{verification4}
+
+\includegraphics[width=5cm, height=5cm]{verification5}
+\includegraphics[width=5cm, height=5cm]{verification6}
+\includegraphics[width=5cm, height=5cm]{verification7}
+
+\begin{center}
+\textit{Figure 2.5 - First 6 iterations of coloring}
+\end{center}
 
 \subsection{Algorithm Efficacy}
 

@@ -190,7 +190,7 @@ def drawGraph(points, edges, colors):
     for i in range(len(points)):
         
         fill(c[colors[i]][0],c[colors[i]][1],c[colors[i]][2])
-        ellipse(points[i][0]*SCREEN_WIDTH, points[i][1]*SCREEN_HEIGHT, 15, 151)
+        ellipse(points[i][0]*SCREEN_WIDTH, points[i][1]*SCREEN_HEIGHT, 15, 15)
     
         
 
@@ -360,6 +360,8 @@ print("Total Edge count: ", sum([len(x) for x in edges])/2)
 tbefore = millis()
 order = smallestLastOrdering(edges)
 tafter = millis()
+
+print(order)
 
 print("Generated Smallest-Last Ordering")
 print("Took ", tafter-tbefore, " ms.")
