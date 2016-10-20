@@ -194,6 +194,24 @@ abline(lm(coloring ~ eplusv))
 The backbone selection process is quite simple, and therefore has little algorithmic complexity. The top colors are selected (this is performed by performing a bucket sort on the color lists based on their cardinalities, a $\theta(N)$ operation), and then the 6 backbones are computed. The actual computatioon of the coverages of the backbones is performed using a depth-first search, which is also a $\theta(N)$ operation. The top backbones are then selected, once again, using a bucket sort and extracting the top 3 (this is also $\theta(N)$). Because the backbone selection process is comprised of 3 individual $\theta(N)$ operations, the entire process is $\theta(N)$. Since it is well-known that all 3 of the described processes do, in fact, run in linear time, no graph of the running time of this operation is provided.
 
 \subsection{Verification Walkthrough}
+For the graph shown in Figure 2.4, the smallest-last ordering, coloring, and backbone selection algorithms will be demonstrated. For this graph, there are 20 nodes ($N=20$), the radius of each node is 0.4 ($R=0.4$), and the average degree of each node is $6$.
+
+\includegraphics[width=6cm, height=9cm]{verification1}
+\includegraphics[width=9cm, height=9cm]{verification0}
+\begin{center}
+\textit{Figure 2.4 - Adjacency list and visualization of reference graph for verification}
+\end{center}
+
+To perform the smallest-last ordering, a set of degree buckets will be used. These will be visualized using a table:
+
+\begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|}
+\hline
+Degree & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11\\
+\hline
+Vertices & \\
+\hline
+\end{tabular}
+
 \subsection{Algorithm Efficacy}
 
 \section{Benchmark Results}

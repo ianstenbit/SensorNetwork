@@ -175,15 +175,24 @@ def generateColoring(order, edges):
 
 def drawGraph(points, edges, colors):
     
-    strokeWeight(0.1)
-    num_colors = max(colors)
+    strokeWeight(1.5)
+    num_colors = max(colors) + 1
+    c = [[149.15003967285156, 227.35211181640625, 4.526849269866943], [193.12850952148438, 64.23397064208984, 130.7484893798828], [235.4288787841797, 117.13941192626953, 38.44186782836914], [87.55290985107422, 160.68319702148438, 48.22673797607422], [16.478803634643555, 60.88829803466797, 152.1176300048828], [144.56930541992188, 64.33700561523438, 53.28782272338867], [77.64564514160156, 175.55262756347656, 186.08509826660156], [159.61895751953125, 116.32075500488281, 90.520263671875]]
+    
+    stroke(180)
     
     for i in range(len(points)):
-        fill(float(colors[i]) / num_colors * 255)
-        ellipse(points[i][0]*SCREEN_WIDTH, points[i][1]*SCREEN_HEIGHT, 5, 5)
-    
         for j in edges[i]:
             line(points[i][0]*SCREEN_WIDTH, points[i][1]*SCREEN_HEIGHT, points[j][0]*SCREEN_WIDTH, points[j][1]*SCREEN_HEIGHT)
+    
+    strokeWeight(0)
+    
+    for i in range(len(points)):
+        
+        fill(c[colors[i]][0],c[colors[i]][1],c[colors[i]][2])
+        ellipse(points[i][0]*SCREEN_WIDTH, points[i][1]*SCREEN_HEIGHT, 15, 151)
+    
+        
 
 def drawGraph3D(points, edges, colors):
     
@@ -334,12 +343,14 @@ print("Radius: ", radius)
 points = generatePoints(DISTRIBUTION, NUM_NODES)
 points = [[0.45342981815338135, 0.271091103553772], [0.697962760925293, 0.6878681778907776], [0.2017396092414856, 0.43846839666366577], [0.021812856197357178, 0.7432962656021118], [0.8227996826171875, 0.13770151138305664], [0.7418602705001831, 0.7007456421852112], [0.011214017868041992, 0.12358337640762329], [0.23520809412002563, 0.5343467593193054], [0.4709324836730957, 0.586536705493927], [0.7546578049659729, 0.5639287233352661], [0.036195337772369385, 0.2006819248199463], [0.2748730182647705, 0.25051963329315186], [0.2732568383216858, 0.934597909450531], [0.5833467245101929, 0.16038405895233154], [0.203147292137146, 0.35830336809158325], [0.4090222716331482, 0.4507196545600891], [0.5901361703872681, 0.01403588056564331], [0.11114233732223511, 0.9713168740272522], [0.95737224817276, 0.6743925213813782], [0.7654043436050415, 0.27720630168914795]]
 
-print(points)
 print("Generated Points")
 
 tbefore = millis()
 edges = findEdges(points, radius, alg="Buckets", mode=DISTRIBUTION)
 tafter = millis()
+
+for e in edges:
+    print(list(set(e)))
 
 print("Average edge count: ", average([len(x) for x in edges]))
 print("Took ", tafter-tbefore, " ms.")
