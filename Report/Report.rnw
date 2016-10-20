@@ -191,7 +191,7 @@ abline(lm(coloring ~ eplusv))
 
 
 \subsubsection{Backbone Selection}
-The backbone selection process is quite simple, and therefore has little algorithmic complexity. The top colors are selected (this is performed by performing a bucket sort on the color lists based on their cardinalities, a $\theta(N)$ operation), and then the 6 backbones are computed. The actual computatioon of the coverages of the backbones is performed using a depth-first search, which is also a $\theta(N)$ operation. The top backbones are then selected, once again, using a bucket sort and extracting the top 3 (this is also $\theta(N)$). Because the backbone selection process is comprised of 3 individual $\theta(N)$ operations, the entire process is $\theta(N)$. Since it is well-known that all 3 of the described processes do, in fact, run in linear time, no graph of the running time of this operation is provided.
+The backbone selection process is quite simple, and therefore has little algorithmic complexity. The top colors are selected (this is performed by performing a bucket sort on the color lists based on their cardinalities, a $\theta(N)$ operation), and then the 6 backbones are computed. The computation of the cardinality of the giant component of the backbones is performed using a depth-first search, which is also a $\theta(N)$ operation. The top backbones are then selected (based on size  of giant component), once again, using a bucket sort and extracting the top 3 (this is also $\theta(N)$, where N is the number of backbones, which is actually constant in this problem (6)). Because the backbone selection process is comprised of 3 individual $\theta(N)$ operations, the entire process is $\theta(N)$. Since it is well-known that all 3 of the described processes do, in fact, run in linear time, no graph of the running time of this operation is provided.
 
 \subsection{Verification Walkthrough}
 For the graph shown in Figure 2.4, the smallest-last ordering, coloring, and backbone selection algorithms will be demonstrated. For this graph, there are 20 nodes ($N=20$), the radius of each node is 0.4 ($R=0.4$), and the average degree of each node is $6$.
@@ -335,9 +335,51 @@ The smallest-last ordering is traversed, and every node is assigned a color when
 \textit{Figure 2.5 - First 6 iterations of coloring}
 \end{center}
 
+\subsubsection{Backbone Selection}
+After the colors have been identified, the top 4 colors are isolated and 6 possible backbones are created. The size of the giant component is then taken, and, in this case, the largest giant component is of cardinality 6. The backbone, therefore, is comprised of 6 nodes. Figure 2.6 shows the subgraph which contains the bes t backbone that was found. Note that the component of the subgraph on the right side of the graph is not part of the backbone, as it is not part of the giant component. The coverage of this backbone is 0.8, as 16 of the 20 nodes are reachable from the backbone.
+
+\begin{center}
+\includegraphics[width=8cm, height=8cm]{verification8}
+
+\textit{Figure 2.6 - A backbone for the verification network (note that only the left component of the graph is the actual backbone)}
+\end{center}
+
 \subsection{Algorithm Efficacy}
 
+Table 2.1 shows the coverages of the backbones computed for each of the 10 benchmarks (each of which will be explored more in the upcoming sections). Clearly, the algorithm performs quite well, as the coverages of the computed backbones are exceptionally high (the lowest is 0.996, or 99.6\% coverage). Furthermore, all algorithms run in linear time, and the use of the Processing language allows for real-time visualization of the graphs built by the algorithm. This real-time rendering is interactive, and contains multiple view modes for looking at individual colors and backbones. The efficiency of the algorithm was evident in the run-time graphs shown in the \textit{Algorithm Engineering} section, and the implementation in Python was even able to compute backbones for a graph of 2 million vertices with an average degree of 250 in a unit square distribution in only a few minutes.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{| c | c | c | c | c | c | c |}
+\hline
+ID & Distribution  & $N_{total}$ & E & R & $N_{covered}$ & Percent Coverage\\
+\hline
+1 & Square & 1000 & 32 & 0.101 & 997 & 0.997\\
+2 & Square & 4000 & 64 & 0.071 & 3993 & 0.998\\
+3 & Square & 16000 & 64 & 0.036 & 15976 & 0.998\\
+4 & Square & 64000 & 64 & 0.018 & 63840 & 0.998\\
+5 & Square & 64000 & 128 & 0.025 & 63960 & 0.999\\
+6 & Disk & 4000 & 64 & 0.063 & 3992 & 0.998\\
+7 & Disk & 4000 & 128 & 0.089 & 3995 & 0.999\\
+8 & Sphere & 4000 & 64 & 0.253 & 3988 & 0.997\\
+9 & Sphere & 16000 & 128 & 0.179 & 15950 & 0.996\\
+10 & Sphere & 64000 & 128 & 0.089 & 63915 & 0.999\\
+\hline
+\end{tabular}
+\caption{A summary of the results of each of the 10 benchmark data sets}
+\end{table}
+
 \section{Benchmark Results}
+The remainder of the report will include visualizations of the 10 benchmark datasets.
+
+\subsection{Benchmark 1}
+
+
+
+%EACH:
+% - plot original degree and deleted degree of each node
+% - plot sizes of each color (num nodes of that color)
+% - table of ID, N, R, M, min degree, avg degree, max degree, max degree when deleted, number of colors, max color class size, terminal clique size, and number of edges in largest backbone, and faces (for spheres)
 
 \end{document}
 
