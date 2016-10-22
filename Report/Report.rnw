@@ -411,13 +411,13 @@ $|V|_{largestBackbone}$ & 144\\
 \multicolumn{2}{|c|}{Backbone 1} \\
 \hline
 Vertices & 148 \\ 
-Edges & 346 \\
+Edges & 173 \\
 Coverage & 0.99 \\ 
 \hline
 \multicolumn{2}{|c|}{Backbone 2} \\
 \hline
 Vertices & 148\\
-Edges & 360\\
+Edges & 180\\
 Coverage & 0.987\\
 \hline
 \end{tabular}
@@ -465,13 +465,13 @@ $|V|_{largestBackbone}$ & 321\\
 \multicolumn{2}{|c|}{Backbone 1} \\
 \hline
 Vertices & 321 \\ 
-Edges & 778 \\
+Edges & 389 \\
 Coverage & 0.998 \\ 
 \hline
 \multicolumn{2}{|c|}{Backbone 2} \\
 \hline
 Vertices & 326\\
-Edges & 822\\
+Edges & 411\\
 Coverage & 1.00\\
 \hline
 \end{tabular}
@@ -480,6 +480,439 @@ Coverage & 1.00\\
 
 \end{center}
 
+
+\subsection{Benchmark 3}
+<<bench3, fig=TRUE, echo=FALSE, eps=FALSE, width=8, height=5,include=FALSE>>= 
+source("data/tmp3.txt")
+ts.plot(ts(lens), ts(delLens), gpars= list(main="Vertex Degrees Originally and at Deletion",col=rainbow(2), xlab="Vertex",ylab="Degree"))
+legend('bottom', c("Original", "Deleted") , bty='n',lwd=4, lty=20, col=rainbow(2), cex=1)
+@
+<<bench3b, fig=TRUE, echo=FALSE, eps=FALSE, width=4, height=4,include=FALSE>>= 
+source("data/col3.txt")
+hist(cols, main="Number of Elements in each Color", xlab="Number of Elements")
+@
+
+\begin{center}
+\raisebox{1.1\height}{
+\begin{tabular}{|l|c|}
+\hline
+ID & 3\\
+\hline
+Distribution Type & Square \\
+$|V|$ (Number of Vertices) & 16000\\
+R (Radius) & 0.0357\\
+$|E| (Number of Edges)$ & 497435\\
+$Degree_{min}$ & 19\\
+$Degree_{max}$ & 98\\
+$Degree_{del,max}$ & 39\\
+Number of Colors & 38\\
+Max Color Class Size & 636\\
+Terminal Clique Size & \\
+$|V|_{largestBackbone}$ & 1271\\
+\hline
+\end{tabular}
+}
+\includegraphics[width=7cm, height=7cm]{Report-bench3b}
+
+\raisebox{1.75\height}{
+\begin{tabular}{|l | l |}
+\hline
+\multicolumn{2}{|c|}{Backbone 1} \\
+\hline
+Vertices & 1270 \\ 
+Edges & 1634 \\
+Coverage & 0.999 \\ 
+\hline
+\multicolumn{2}{|c|}{Backbone 2} \\
+\hline
+Vertices & 1271\\
+Edges & 1610\\
+Coverage & 0.996\\
+\hline
+\end{tabular}
+}
+\includegraphics[width=12cm]{Report-bench3}
+
+\end{center}
+
+\subsection{Benchmark 4}
+<<bench4, fig=TRUE, echo=FALSE, eps=FALSE, width=8, height=5,include=FALSE>>= 
+source("data/tmp4.txt")
+ts.plot(ts(lens), ts(delLens), gpars= list(main="Vertex Degrees Originally and at Deletion",col=rainbow(2), xlab="Vertex",ylab="Degree"))
+legend('bottom', c("Original", "Deleted") , bty='n',lwd=4, lty=20, col=rainbow(2), cex=1)
+@
+<<bench4b, fig=TRUE, echo=FALSE, eps=FALSE, width=4, height=4,include=FALSE>>= 
+source("data/col4.txt")
+hist(cols, main="Number of Elements in each Color", xlab="Number of Elements")
+@
+
+\begin{center}
+\raisebox{1.1\height}{
+\begin{tabular}{|l|c|}
+\hline
+ID & 4\\
+\hline
+Distribution Type & Square \\
+$|V|$ (Number of Vertices) & 64000\\
+R (Radius) & 0.0178\\
+$|E| (Number of Edges)$ & 2018059\\
+$Degree_{min}$ & 15\\
+$Degree_{max}$ & 96\\
+$Degree_{del,max}$ & 40\\
+Number of Colors & 38\\
+Max Color Class Size & 2532\\
+Terminal Clique Size & \\
+$|V|_{largestBackbone}$ & 5040\\
+\hline
+\end{tabular}
+}
+\includegraphics[width=7cm, height=7cm]{Report-bench4b}
+
+\raisebox{1.75\height}{
+\begin{tabular}{|l | l |}
+\hline
+\multicolumn{2}{|c|}{Backbone 1} \\
+\hline
+Vertices &  5040\\ 
+Edges &  6510\\
+Coverage &  0.999\\ 
+\hline
+\multicolumn{2}{|c|}{Backbone 2} \\
+\hline
+Vertices & 5055\\
+Edges & 6562\\
+Coverage & 0.998\\
+\hline
+\end{tabular}
+}
+\includegraphics[width=12cm]{Report-bench4}
+
+\end{center}
+
+
+\subsection{Benchmark 5}
+<<bench5, fig=TRUE, echo=FALSE, eps=FALSE, width=8, height=5,include=FALSE>>= 
+source("data/tmp5.txt")
+ts.plot(ts(lens), ts(delLens), gpars= list(main="Vertex Degrees Originally and at Deletion",col=rainbow(2), xlab="Vertex",ylab="Degree"))
+legend('bottom', c("Original", "Deleted") , bty='n',lwd=4, lty=20, col=rainbow(2), cex=1)
+@
+<<bench5b, fig=TRUE, echo=FALSE, eps=FALSE, width=4, height=4,include=FALSE>>= 
+source("data/col5.txt")
+hist(cols, main="Number of Elements in each Color", xlab="Number of Elements")
+@
+
+\begin{center}
+\raisebox{1.1\height}{
+\begin{tabular}{|l|c|}
+\hline
+ID & 5\\
+\hline
+Distribution Type & Square \\
+$|V|$ (Number of Vertices) & 64000\\
+R (Radius) & .0252\\
+$|E| (Number of Edges)$ & 4009517\\
+$Degree_{min}$ & 36\\
+$Degree_{max}$ & 179\\
+$Degree_{del,max}$ & 72\\
+Number of Colors & 66\\
+Max Color Class Size & 1374\\
+Terminal Clique Size & \\
+$|V|_{largestBackbone}$ & 2734\\
+\hline
+\end{tabular}
+}
+\includegraphics[width=7cm, height=7cm]{Report-bench5b}
+
+\raisebox{1.75\height}{
+\begin{tabular}{|l | l |}
+\hline
+\multicolumn{2}{|c|}{Backbone 1} \\
+\hline
+Vertices &  2734\\ 
+Edges &  3714\\
+Coverage &  0.999\\ 
+\hline
+\multicolumn{2}{|c|}{Backbone 2} \\
+\hline
+Vertices & 2737 \\
+Edges & 3755\\
+Coverage & 0.999\\
+\hline
+\end{tabular}
+}
+\includegraphics[width=12cm]{Report-bench5}
+
+\end{center}
+
+\subsection{Benchmark 6}
+<<bench6, fig=TRUE, echo=FALSE, eps=FALSE, width=8, height=5,include=FALSE>>= 
+source("data/tmp6.txt")
+ts.plot(ts(lens), ts(delLens), gpars= list(main="Vertex Degrees Originally and at Deletion",col=rainbow(2), xlab="Vertex",ylab="Degree"))
+legend('bottom', c("Original", "Deleted") , bty='n',lwd=4, lty=20, col=rainbow(2), cex=1)
+@
+<<bench6b, fig=TRUE, echo=FALSE, eps=FALSE, width=4, height=4,include=FALSE>>= 
+source("data/col6.txt")
+hist(cols, main="Number of Elements in each Color", xlab="Number of Elements")
+@
+
+\begin{center}
+\raisebox{1.1\height}{
+\begin{tabular}{|l|c|}
+\hline
+ID & 6\\
+\hline
+Distribution Type & Disk \\
+$|V|$ (Number of Vertices) & 4000\\
+R (Radius) & .0632\\
+$|E| (Number of Edges)$ & 119871\\
+$Degree_{min}$ & 23\\
+$Degree_{max}$ & 89\\
+$Degree_{del,max}$ & 37\\
+Number of Colors & 36\\
+Max Color Class Size & 164\\
+Terminal Clique Size & \\
+$|V|_{largestBackbone}$ & 328\\
+\hline
+\end{tabular}
+}
+\includegraphics[width=7cm, height=7cm]{Report-bench6b}
+
+\raisebox{1.75\height}{
+\begin{tabular}{|l | l |}
+\hline
+\multicolumn{2}{|c|}{Backbone 1} \\
+\hline
+Vertices &  328\\ 
+Edges &  415\\
+Coverage &  0.993\\ 
+\hline
+\multicolumn{2}{|c|}{Backbone 2} \\
+\hline
+Vertices & 326\\
+Edges & 420\\
+Coverage & 0.998\\
+\hline
+\end{tabular}
+}
+\includegraphics[width=12cm]{Report-bench6}
+
+\end{center}
+
+\subsection{Benchmark 7}
+<<bench7, fig=TRUE, echo=FALSE, eps=FALSE, width=8, height=5,include=FALSE>>= 
+source("data/tmp7.txt")
+ts.plot(ts(lens), ts(delLens), gpars= list(main="Vertex Degrees Originally and at Deletion",col=rainbow(2), xlab="Vertex",ylab="Degree"))
+legend('bottom', c("Original", "Deleted") , bty='n',lwd=4, lty=20, col=rainbow(2), cex=1)
+@
+<<bench7b, fig=TRUE, echo=FALSE, eps=FALSE, width=4, height=4,include=FALSE>>= 
+source("data/col7.txt")
+hist(cols, main="Number of Elements in each Color", xlab="Number of Elements")
+@
+
+\begin{center}
+\raisebox{1.1\height}{
+\begin{tabular}{|l|c|}
+\hline
+ID & 7\\
+\hline
+Distribution Type & Disk \\
+$|V|$ (Number of Vertices) & 4000\\
+R (Radius) & \\
+$|E| (Number of Edges)$ & \\
+$Degree_{min}$ & \\
+$Degree_{max}$ & \\
+$Degree_{del,max}$ & \\
+Number of Colors & \\
+Max Color Class Size & \\
+Terminal Clique Size & \\
+$|V|_{largestBackbone}$ & \\
+\hline
+\end{tabular}
+}
+\includegraphics[width=7cm, height=7cm]{Report-bench7b}
+
+\raisebox{1.75\height}{
+\begin{tabular}{|l | l |}
+\hline
+\multicolumn{2}{|c|}{Backbone 1} \\
+\hline
+Vertices &  \\ 
+Edges &  \\
+Coverage &  \\ 
+\hline
+\multicolumn{2}{|c|}{Backbone 2} \\
+\hline
+Vertices & \\
+Edges & \\
+Coverage & \\
+\hline
+\end{tabular}
+}
+\includegraphics[width=12cm]{Report-bench7}
+
+\end{center}
+
+\subsection{Benchmark 8}
+<<bench8, fig=TRUE, echo=FALSE, eps=FALSE, width=8, height=5,include=FALSE>>= 
+source("data/tmp8.txt")
+ts.plot(ts(lens), ts(delLens), gpars= list(main="Vertex Degrees Originally and at Deletion",col=rainbow(2), xlab="Vertex",ylab="Degree"))
+legend('bottom', c("Original", "Deleted") , bty='n',lwd=4, lty=20, col=rainbow(2), cex=1)
+@
+<<bench8b, fig=TRUE, echo=FALSE, eps=FALSE, width=4, height=4,include=FALSE>>= 
+source("data/col8.txt")
+hist(cols, main="Number of Elements in each Color", xlab="Number of Elements")
+@
+
+\begin{center}
+\raisebox{1.1\height}{
+\begin{tabular}{|l|c|}
+\hline
+ID & 8\\
+\hline
+Distribution Type & Sphere \\
+$|V|$ (Number of Vertices) & 4000\\
+R (Radius) & \\
+$|E| (Number of Edges)$ & \\
+$Degree_{min}$ & \\
+$Degree_{max}$ & \\
+$Degree_{del,max}$ & \\
+Number of Colors & \\
+Max Color Class Size & \\
+Terminal Clique Size & \\
+$|V|_{largestBackbone}$ & \\
+\hline
+\end{tabular}
+}
+\includegraphics[width=7cm, height=7cm]{Report-bench8b}
+
+\raisebox{1.75\height}{
+\begin{tabular}{|l | l |}
+\hline
+\multicolumn{2}{|c|}{Backbone 1} \\
+\hline
+Vertices &  \\ 
+Edges &  \\
+Coverage &  \\ 
+\hline
+\multicolumn{2}{|c|}{Backbone 2} \\
+\hline
+Vertices & \\
+Edges & \\
+Coverage & \\
+\hline
+\end{tabular}
+}
+\includegraphics[width=12cm]{Report-bench8}
+
+\end{center}
+
+\subsection{Benchmark 9}
+<<bench9, fig=TRUE, echo=FALSE, eps=FALSE, width=8, height=5,include=FALSE>>= 
+source("data/tmp9.txt")
+ts.plot(ts(lens), ts(delLens), gpars= list(main="Vertex Degrees Originally and at Deletion",col=rainbow(2), xlab="Vertex",ylab="Degree"))
+legend('bottom', c("Original", "Deleted") , bty='n',lwd=4, lty=20, col=rainbow(2), cex=1)
+@
+<<bench9b, fig=TRUE, echo=FALSE, eps=FALSE, width=4, height=4,include=FALSE>>= 
+source("data/col9.txt")
+hist(cols, main="Number of Elements in each Color", xlab="Number of Elements")
+@
+
+\begin{center}
+\raisebox{1.1\height}{
+\begin{tabular}{|l|c|}
+\hline
+ID & 9\\
+\hline
+Distribution Type & Sphere \\
+$|V|$ (Number of Vertices) & 16000\\
+R (Radius) & \\
+$|E| (Number of Edges)$ & \\
+$Degree_{min}$ & \\
+$Degree_{max}$ & \\
+$Degree_{del,max}$ & \\
+Number of Colors & \\
+Max Color Class Size & \\
+Terminal Clique Size & \\
+$|V|_{largestBackbone}$ & \\
+\hline
+\end{tabular}
+}
+\includegraphics[width=7cm, height=7cm]{Report-bench9b}
+
+\raisebox{1.75\height}{
+\begin{tabular}{|l | l |}
+\hline
+\multicolumn{2}{|c|}{Backbone 1} \\
+\hline
+Vertices &  \\ 
+Edges &  \\
+Coverage &  \\ 
+\hline
+\multicolumn{2}{|c|}{Backbone 2} \\
+\hline
+Vertices & \\
+Edges & \\
+Coverage & \\
+\hline
+\end{tabular}
+}
+\includegraphics[width=12cm]{Report-bench9}
+
+\end{center}
+
+\subsection{Benchmark 10}
+<<bench10, fig=TRUE, echo=FALSE, eps=FALSE, width=8, height=5,include=FALSE>>= 
+source("data/tmp10.txt")
+ts.plot(ts(lens), ts(delLens), gpars= list(main="Vertex Degrees Originally and at Deletion",col=rainbow(2), xlab="Vertex",ylab="Degree"))
+legend('bottom', c("Original", "Deleted") , bty='n',lwd=4, lty=20, col=rainbow(2), cex=1)
+@
+<<bench10b, fig=TRUE, echo=FALSE, eps=FALSE, width=4, height=4,include=FALSE>>= 
+source("data/col10.txt")
+hist(cols, main="Number of Elements in each Color", xlab="Number of Elements")
+@
+
+\begin{center}
+\raisebox{1.1\height}{
+\begin{tabular}{|l|c|}
+\hline
+ID & 10\\
+\hline
+Distribution Type & Sphere \\
+$|V|$ (Number of Vertices) & 64000\\
+R (Radius) & \\
+$|E| (Number of Edges)$ & \\
+$Degree_{min}$ & \\
+$Degree_{max}$ & \\
+$Degree_{del,max}$ & \\
+Number of Colors & \\
+Max Color Class Size & \\
+Terminal Clique Size & \\
+$|V|_{largestBackbone}$ & \\
+\hline
+\end{tabular}
+}
+\includegraphics[width=7cm, height=7cm]{Report-bench10b}
+
+\raisebox{1.75\height}{
+\begin{tabular}{|l | l |}
+\hline
+\multicolumn{2}{|c|}{Backbone 1} \\
+\hline
+Vertices &  \\ 
+Edges &  \\
+Coverage &  \\ 
+\hline
+\multicolumn{2}{|c|}{Backbone 2} \\
+\hline
+Vertices & \\
+Edges & \\
+Coverage & \\
+\hline
+\end{tabular}
+}
+\includegraphics[width=12cm]{Report-bench10}
+
+\end{center}
 
 %EACH:
 % - plot original degree and deleted degree of each node
