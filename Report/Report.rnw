@@ -69,6 +69,7 @@ When the largest benchmark test was performed, the process consumed 100\% of ava
 
 One final consideration with respect to the performance of the algorithm is that the entire process is run in Python inside the Processing environment, to make interfacing with the graphics library more simple. This adds considerable overhead to the total time it takes to perform computations on the datasets. However, because this is a constant overhead, this will not interfere with the measurements of computation time for the benchmark datasets relative to eachother.
 
+Plots and figures for this report were generated using R with Sweave and LaTeX.
 
 \section{References}
 
@@ -382,7 +383,7 @@ legend('bottom', c("Original", "Deleted") , bty='n',lwd=4, lty=20, col=rainbow(2
 @
 <<bench1b, fig=TRUE, echo=FALSE, eps=FALSE, width=4, height=4,include=FALSE>>= 
 source("data/col1.txt")
-hist(cols, main="Number of Elements in each Color", xlab="Number of Elements")
+barplot(cols, main="Number of Vertices in each Color", xlab="Color", ylab="Number of Vertices")
 @
 
 \begin{center}
@@ -436,7 +437,7 @@ legend('bottom', c("Original", "Deleted") , bty='n',lwd=4, lty=20, col=rainbow(2
 @
 <<bench2b, fig=TRUE, echo=FALSE, eps=FALSE, width=4, height=4,include=FALSE>>= 
 source("data/col2.txt")
-hist(cols, main="Number of Elements in each Color", xlab="Number of Elements")
+barplot(cols, main="Number of Vertices in each Color", xlab="Color", ylab="Number of Vertices")
 @
 
 \begin{center}
@@ -491,7 +492,7 @@ legend('bottom', c("Original", "Deleted") , bty='n',lwd=4, lty=20, col=rainbow(2
 @
 <<bench3b, fig=TRUE, echo=FALSE, eps=FALSE, width=4, height=4,include=FALSE>>= 
 source("data/col3.txt")
-hist(cols, main="Number of Elements in each Color", xlab="Number of Elements")
+barplot(cols, main="Number of Vertices in each Color", xlab="Color", ylab="Number of Vertices")
 @
 
 \begin{center}
@@ -545,7 +546,7 @@ legend('bottom', c("Original", "Deleted") , bty='n',lwd=4, lty=20, col=rainbow(2
 @
 <<bench4b, fig=TRUE, echo=FALSE, eps=FALSE, width=4, height=4,include=FALSE>>= 
 source("data/col4.txt")
-hist(cols, main="Number of Elements in each Color", xlab="Number of Elements")
+barplot(cols, main="Number of Vertices in each Color", xlab="Color", ylab="Number of Vertices")
 @
 
 \begin{center}
@@ -600,7 +601,7 @@ legend('bottom', c("Original", "Deleted") , bty='n',lwd=4, lty=20, col=rainbow(2
 @
 <<bench5b, fig=TRUE, echo=FALSE, eps=FALSE, width=4, height=4,include=FALSE>>= 
 source("data/col5.txt")
-hist(cols, main="Number of Elements in each Color", xlab="Number of Elements")
+barplot(cols, main="Number of Vertices in each Color", xlab="Color", ylab="Number of Vertices")
 @
 
 \begin{center}
@@ -654,7 +655,7 @@ legend('bottom', c("Original", "Deleted") , bty='n',lwd=4, lty=20, col=rainbow(2
 @
 <<bench6b, fig=TRUE, echo=FALSE, eps=FALSE, width=4, height=4,include=FALSE>>= 
 source("data/col6.txt")
-hist(cols, main="Number of Elements in each Color", xlab="Number of Elements")
+barplot(cols, main="Number of Vertices in each Color", xlab="Color", ylab="Number of Vertices")
 @
 
 \begin{center}
@@ -708,7 +709,7 @@ legend('bottom', c("Original", "Deleted") , bty='n',lwd=4, lty=20, col=rainbow(2
 @
 <<bench7b, fig=TRUE, echo=FALSE, eps=FALSE, width=4, height=4,include=FALSE>>= 
 source("data/col7.txt")
-hist(cols, main="Number of Elements in each Color", xlab="Number of Elements")
+barplot(cols, main="Number of Vertices in each Color", xlab="Color", ylab="Number of Vertices")
 @
 
 \begin{center}
@@ -762,7 +763,7 @@ legend('bottom', c("Original", "Deleted") , bty='n',lwd=4, lty=20, col=rainbow(2
 @
 <<bench8b, fig=TRUE, echo=FALSE, eps=FALSE, width=4, height=4,include=FALSE>>= 
 source("data/col8.txt")
-hist(cols, main="Number of Elements in each Color", xlab="Number of Elements")
+barplot(cols, main="Number of Vertices in each Color", xlab="Color", ylab="Number of Vertices")
 @
 
 \begin{center}
@@ -819,7 +820,7 @@ legend('bottom', c("Original", "Deleted") , bty='n',lwd=4, lty=20, col=rainbow(2
 @
 <<bench9b, fig=TRUE, echo=FALSE, eps=FALSE, width=4, height=4,include=FALSE>>= 
 source("data/col9.txt")
-hist(cols, main="Number of Elements in each Color", xlab="Number of Elements")
+barplot(cols, main="Number of Vertices in each Color", xlab="Color", ylab="Number of Vertices")
 @
 
 \begin{center}
@@ -876,7 +877,7 @@ legend('bottom', c("Original", "Deleted") , bty='n',lwd=4, lty=20, col=rainbow(2
 @
 <<bench10b, fig=TRUE, echo=FALSE, eps=FALSE, width=4, height=4,include=FALSE>>= 
 source("data/col10.txt")
-hist(cols, main="Number of Elements in each Color", xlab="Number of Elements")
+barplot(cols, main="Number of Vertices in each Color", xlab="Color", ylab="Number of Vertices")
 @
 
 \begin{center}
@@ -922,6 +923,20 @@ Faces & 667\\
 }
 \includegraphics[width=12cm]{Report-bench10}
 
+\end{center}
+
+
+\subsection{Real-Time Graphics Interface}
+The graphs generated in this project can be visualized interactivelly using Processing. Included below are two screenshots of a sphere distribution. While rendering the sphere, one can drag the sphere around to see it from different perspectives, and press number keys to switch between view modes (available options include seeing the whole graph, seeing individual backbones, or seeing individual colors).
+
+The code for the entire project, including the real-time visualization, is available at:
+\begin{center}
+\textit{https://www.github.com/ianjjohnson/SensorNetwork}
+\end{center}
+
+\begin{center}
+\includegraphics[width=8cm]{sphere0}
+\includegraphics[width=8 cm]{sphere1}
 \end{center}
 
 %EACH:

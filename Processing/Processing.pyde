@@ -365,7 +365,7 @@ def getBackboneEdges(edges, backbones):
 NUM_NODES = 1000
 AVG_DEGREE = 16
 DISTRIBUTION = "Sphere" #Disk, Square, or Sphere
-RENDER_MODE = 0
+RENDER_MODE = 1
 
 
 radius = calculateRadius(NUM_NODES, AVG_DEGREE, DISTRIBUTION)
@@ -459,7 +459,6 @@ print("V_LargestBackbone:", len(topBackbones[0]))
 print("V_2ndLargestBackbone:", len(topBackbones[1]))
 
 print("Backbone Edge Counts:", [sum([len(x) for x in b])/2 for b in backboneEdges])
-
 
 
 if DISTRIBUTION == "Sphere":
