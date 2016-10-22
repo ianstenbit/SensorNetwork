@@ -362,8 +362,8 @@ def getBackboneEdges(edges, backbones):
     return ls    
 
 
-NUM_NODES = 1000
-AVG_DEGREE = 32
+NUM_NODES = 4000
+AVG_DEGREE = 64
 DISTRIBUTION = "Square" #Disk, Square, or Sphere
 RENDER_MODE = 0
 
@@ -426,15 +426,38 @@ topBackbones = [backbones[i] for i in sorted(range(len(backboneGiantComponents))
 print("Found Top-2 Backbones")
 
 topCoverages = coverageOfBackbones(points, edges, topBackbones)
-
 #print("Coverages of Top Backbones:", topCoverages)
 
-#print("Percent Coverage:", [(x+0.0)/NUM_NODES for x in topCoverages])
+print("Percent Coverage:", [(x+0.0)/NUM_NODES for x in topCoverages])
+
+backboneEdges = getBackboneEdges(edges, topBackbones)
 
 lens = [len(x) for x in edges]
+print("Number of Edges:", sum(lens))
 print("Min Degree:", min(lens))
 print("Max Degree:", max(lens))
 print("Max Degree when deleted:", max(degreesWhenDeleted))
+print("Max Color:", max([len(x) for x in colorLists]))
+#print(lens)
+#print(degreesWhenDeleted)
+print("V_LargestBackbone:", len(topBackbones[0]))
+print("V_2ndLargestBackbone:", len(topBackbones[1]))
+
+print("Backbone Edge Counts:", [sum([len(x) for x in b]) for b in backboneEdges])
+
+file = open('tmp.txt', 'w')
+file.write("lens <- c(")
+file.write(str(lens).strip('[]'))
+file.write(")\ndelLens <- c(")
+file.write(str(degreesWhenDeleted).strip('[]'))
+file.write(")\n")
+file.close()
+
+file = open('col.txt', 'w')
+file.write("cols <- c(")
+file.write(str([len(x) for x in colorLists]).strip('[]'))
+file.write(")")
+file.close()
 
 
 
