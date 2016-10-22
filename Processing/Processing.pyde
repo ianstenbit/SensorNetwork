@@ -362,9 +362,9 @@ def getBackboneEdges(edges, backbones):
     return ls    
 
 
-NUM_NODES = 64000
-AVG_DEGREE = 128
-DISTRIBUTION = "Square" #Disk, Square, or Sphere
+NUM_NODES = 1000
+AVG_DEGREE = 16
+DISTRIBUTION = "Sphere" #Disk, Square, or Sphere
 RENDER_MODE = 0
 
 
@@ -481,8 +481,8 @@ def drawGraphHelper(p, e, c):
 def setup():
     
 
-    #size(SCREEN_WIDTH, SCREEN_HEIGHT, P3D)
-    size(SCREEN_WIDTH, SCREEN_HEIGHT)
+    size(SCREEN_WIDTH, SCREEN_HEIGHT, P3D)
+    #size(SCREEN_WIDTH, SCREEN_HEIGHT)
         
     background(255)
     frameRate(30)

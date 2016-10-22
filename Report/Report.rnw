@@ -369,6 +369,8 @@ ID & Distribution  & $N_{total}$ & E & R & $N_{covered}$ & Percent Coverage\\
 \caption{A summary of the results of each of the 10 benchmark data sets}
 \end{table}
 
+\pagebreak
+
 \section{Benchmark Results}
 The remainder of the report will include visualizations of the 10 benchmark datasets.
 
@@ -717,15 +719,15 @@ ID & 7\\
 \hline
 Distribution Type & Disk \\
 $|V|$ (Number of Vertices) & 4000\\
-R (Radius) & \\
-$|E| (Number of Edges)$ & \\
-$Degree_{min}$ & \\
-$Degree_{max}$ & \\
-$Degree_{del,max}$ & \\
-Number of Colors & \\
-Max Color Class Size & \\
+R (Radius) & .0894\\
+$|E| (Number of Edges)$ & 236763\\
+$Degree_{min}$ & 51\\
+$Degree_{max}$ & 160\\
+$Degree_{del,max}$ & 67\\
+Number of Colors & 59\\
+Max Color Class Size & 89\\
 Terminal Clique Size & \\
-$|V|_{largestBackbone}$ & \\
+$|V|_{largestBackbone}$ & 176\\
 \hline
 \end{tabular}
 }
@@ -736,15 +738,15 @@ $|V|_{largestBackbone}$ & \\
 \hline
 \multicolumn{2}{|c|}{Backbone 1} \\
 \hline
-Vertices &  \\ 
-Edges &  \\
-Coverage &  \\ 
+Vertices &  176\\ 
+Edges &  238\\
+Coverage &  0.998\\ 
 \hline
 \multicolumn{2}{|c|}{Backbone 2} \\
 \hline
-Vertices & \\
-Edges & \\
-Coverage & \\
+Vertices & 177\\
+Edges & 230\\
+Coverage & 0.986\\
 \hline
 \end{tabular}
 }
@@ -771,34 +773,37 @@ ID & 8\\
 \hline
 Distribution Type & Sphere \\
 $|V|$ (Number of Vertices) & 4000\\
-R (Radius) & \\
-$|E| (Number of Edges)$ & \\
-$Degree_{min}$ & \\
-$Degree_{max}$ & \\
-$Degree_{del,max}$ & \\
-Number of Colors & \\
-Max Color Class Size & \\
+R (Radius) & 0.252\\
+$|E| (Number of Edges)$ & 124376\\
+$Degree_{min}$ & 37\\
+$Degree_{max}$ & 87\\
+$Degree_{del,max}$ & 39\\
+Number of Colors & 36\\
+Max Color Class Size & 161\\
 Terminal Clique Size & \\
-$|V|_{largestBackbone}$ & \\
+$|V|_{largestBackbone}$ & 321\\
+Faces on Largest Backbone & 101 \\
 \hline
 \end{tabular}
 }
 \includegraphics[width=7cm, height=7cm]{Report-bench8b}
 
-\raisebox{1.75\height}{
+\raisebox{1.25\height}{
 \begin{tabular}{|l | l |}
 \hline
 \multicolumn{2}{|c|}{Backbone 1} \\
 \hline
-Vertices &  \\ 
-Edges &  \\
-Coverage &  \\ 
+Vertices &  321\\ 
+Edges &  420\\
+Coverage &  0.996\\ 
+Faces & 101\\
 \hline
 \multicolumn{2}{|c|}{Backbone 2} \\
 \hline
-Vertices & \\
-Edges & \\
-Coverage & \\
+Vertices & 319\\
+Edges & 429\\
+Coverage & 0.999\\
+Faces & 112\\
 \hline
 \end{tabular}
 }
@@ -825,34 +830,37 @@ ID & 9\\
 \hline
 Distribution Type & Sphere \\
 $|V|$ (Number of Vertices) & 16000\\
-R (Radius) & \\
-$|E| (Number of Edges)$ & \\
-$Degree_{min}$ & \\
-$Degree_{max}$ & \\
-$Degree_{del,max}$ & \\
-Number of Colors & \\
-Max Color Class Size & \\
+R (Radius) & 0.179\\
+$|E| (Number of Edges)$ & 836565\\
+$Degree_{min}$ & 61\\
+$Degree_{max}$ & 152\\
+$Degree_{del,max}$ & 65\\
+Number of Colors & 59\\
+Max Color Class Size & 383\\
 Terminal Clique Size & \\
-$|V|_{largestBackbone}$ & \\
+$|V|_{largestBackbone}$ & 762\\
+Faces on Largest Backbone &  189\\
 \hline
 \end{tabular}
 }
 \includegraphics[width=7cm, height=7cm]{Report-bench9b}
 
-\raisebox{1.75\height}{
+\raisebox{1.25\height}{
 \begin{tabular}{|l | l |}
 \hline
 \multicolumn{2}{|c|}{Backbone 1} \\
 \hline
-Vertices &  \\ 
-Edges &  \\
-Coverage &  \\ 
+Vertices &  762\\ 
+Edges &  949\\
+Coverage &  0.995\\ 
+Faces & 189\\
 \hline
 \multicolumn{2}{|c|}{Backbone 2} \\
 \hline
-Vertices & \\
-Edges & \\
-Coverage & \\
+Vertices & 763\\
+Edges & 938\\
+Coverage & 0.995\\
+Faces & 176\\
 \hline
 \end{tabular}
 }
@@ -879,34 +887,36 @@ ID & 10\\
 \hline
 Distribution Type & Sphere \\
 $|V|$ (Number of Vertices) & 64000\\
-R (Radius) & \\
-$|E| (Number of Edges)$ & \\
-$Degree_{min}$ & \\
-$Degree_{max}$ & \\
-$Degree_{del,max}$ & \\
-Number of Colors & \\
-Max Color Class Size & \\
+R (Radius) & .0894\\
+$|E| (Number of Edges)$ & 2597009\\
+$Degree_{min}$ & 35\\
+$Degree_{max}$ & 134\\
+$Degree_{del,max}$ & 60\\
+Number of Colors & 58\\
+Max Color Class Size & 1839\\
 Terminal Clique Size & \\
-$|V|_{largestBackbone}$ & \\
+$|V|_{largestBackbone}$ & 3758\\
 \hline
 \end{tabular}
 }
 \includegraphics[width=7cm, height=7cm]{Report-bench10b}
 
-\raisebox{1.75\height}{
+\raisebox{1.25\height}{
 \begin{tabular}{|l | l |}
 \hline
 \multicolumn{2}{|c|}{Backbone 1} \\
 \hline
-Vertices &  \\ 
-Edges &  \\
-Coverage &  \\ 
+Vertices &  3758\\ 
+Edges &  4396\\
+Coverage &  .991\\ 
+Faces & 640\\
 \hline
 \multicolumn{2}{|c|}{Backbone 2} \\
 \hline
-Vertices & \\
-Edges & \\
-Coverage & \\
+Vertices & 3773\\
+Edges & 4438\\
+Coverage & .994\\
+Faces & 667\\
 \hline
 \end{tabular}
 }
