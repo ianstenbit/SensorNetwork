@@ -395,7 +395,7 @@ ID & 1\\
 Distribution Type & Square \\
 $|V|$ (Number of Vertices) & 1000\\
 R (Radius) & 0.101\\
-$|E| (Number of Edges)$ & 29352\\
+$|E|$ (Number of Edges) & 29352\\
 $Degree_{min}$ & 8\\
 $Degree_{max}$ & 49\\
 $Degree_{del,max}$ & 21\\
@@ -449,7 +449,7 @@ ID & 2\\
 Distribution Type & Square \\
 $|V|$ (Number of Vertices) & 4000\\
 R (Radius) & 0.0714\\
-$|E| (Number of Edges)$ & 120609\\
+$|E|$ (Number of Edges) & 120609\\
 $Degree_{min}$ & 17\\
 $Degree_{max}$ & 90\\
 $Degree_{del,max}$ & 38\\
@@ -504,7 +504,7 @@ ID & 3\\
 Distribution Type & Square \\
 $|V|$ (Number of Vertices) & 16000\\
 R (Radius) & 0.0357\\
-$|E| (Number of Edges)$ & 497435\\
+$|E|$ (Number of Edges) & 497435\\
 $Degree_{min}$ & 19\\
 $Degree_{max}$ & 98\\
 $Degree_{del,max}$ & 39\\
@@ -558,7 +558,7 @@ ID & 4\\
 Distribution Type & Square \\
 $|V|$ (Number of Vertices) & 64000\\
 R (Radius) & 0.0178\\
-$|E| (Number of Edges)$ & 2018059\\
+$|E|$ (Number of Edges) & 2018059\\
 $Degree_{min}$ & 15\\
 $Degree_{max}$ & 96\\
 $Degree_{del,max}$ & 40\\
@@ -613,7 +613,7 @@ ID & 5\\
 Distribution Type & Square \\
 $|V|$ (Number of Vertices) & 64000\\
 R (Radius) & .0252\\
-$|E| (Number of Edges)$ & 4009517\\
+$|E|$ (Number of Edges) & 4009517\\
 $Degree_{min}$ & 36\\
 $Degree_{max}$ & 179\\
 $Degree_{del,max}$ & 72\\
@@ -667,7 +667,7 @@ ID & 6\\
 Distribution Type & Disk \\
 $|V|$ (Number of Vertices) & 4000\\
 R (Radius) & .0632\\
-$|E| (Number of Edges)$ & 119871\\
+$|E|$ (Number of Edges) & 119871\\
 $Degree_{min}$ & 23\\
 $Degree_{max}$ & 89\\
 $Degree_{del,max}$ & 37\\
@@ -721,7 +721,7 @@ ID & 7\\
 Distribution Type & Disk \\
 $|V|$ (Number of Vertices) & 4000\\
 R (Radius) & .0894\\
-$|E| (Number of Edges)$ & 236763\\
+$|E|$ (Number of Edges) & 236763\\
 $Degree_{min}$ & 51\\
 $Degree_{max}$ & 160\\
 $Degree_{del,max}$ & 67\\
@@ -775,7 +775,7 @@ ID & 8\\
 Distribution Type & Sphere \\
 $|V|$ (Number of Vertices) & 4000\\
 R (Radius) & 0.252\\
-$|E| (Number of Edges)$ & 124376\\
+$|E|$ (Number of Edges) & 124376\\
 $Degree_{min}$ & 37\\
 $Degree_{max}$ & 87\\
 $Degree_{del,max}$ & 39\\
@@ -832,7 +832,7 @@ ID & 9\\
 Distribution Type & Sphere \\
 $|V|$ (Number of Vertices) & 16000\\
 R (Radius) & 0.179\\
-$|E| (Number of Edges)$ & 836565\\
+$|E|$ (Number of Edges) & 836565\\
 $Degree_{min}$ & 61\\
 $Degree_{max}$ & 152\\
 $Degree_{del,max}$ & 65\\
@@ -889,7 +889,7 @@ ID & 10\\
 Distribution Type & Sphere \\
 $|V|$ (Number of Vertices) & 64000\\
 R (Radius) & .0894\\
-$|E| (Number of Edges)$ & 2597009\\
+$|E|$ (Number of Edges) & 2597009\\
 $Degree_{min}$ & 35\\
 $Degree_{max}$ & 134\\
 $Degree_{del,max}$ & 60\\
