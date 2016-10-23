@@ -370,10 +370,9 @@ ID & Distribution  & $N_{total}$ & E & R & $N_{covered}$ & Percent Coverage\\
 \caption{A summary of the results of each of the 10 benchmark data sets}
 \end{table}
 
-\pagebreak
-
 \section{Benchmark Results}
 The remainder of the report will include visualizations of the 10 benchmark datasets.
+\pagebreak
 
 \subsection{Benchmark 1}
 <<bench1, fig=TRUE, echo=FALSE, eps=FALSE, width=8, height=5,include=FALSE>>= 
@@ -401,7 +400,7 @@ $Degree_{max}$ & 49\\
 $Degree_{del,max}$ & 21\\
 Number of Colors & 23\\
 Max Color Class Size & 78\\
-Terminal Clique Size & \\
+Terminal Clique Size & 20\\
 $|V|_{largestBackbone}$ & 144\\
 \hline
 \end{tabular}
@@ -426,6 +425,10 @@ Coverage & 0.987\\
 \end{tabular}
 }
 \includegraphics[width=12cm]{Report-bench1}
+
+\includegraphics[width=7.5cm, height=7.5cm]{bench1}
+
+\textit{The distribution of points and a backbone for benchmark 1}
 
 \end{center}
 
@@ -481,6 +484,10 @@ Coverage & 1.00\\
 }
 \includegraphics[width=12cm]{Report-bench2}
 
+\includegraphics[width=7.5cm, height=7.5cm]{bench2}
+
+\textit{The distribution of points and a backbone for benchmark 2}
+
 \end{center}
 
 
@@ -510,7 +517,7 @@ $Degree_{max}$ & 98\\
 $Degree_{del,max}$ & 39\\
 Number of Colors & 38\\
 Max Color Class Size & 636\\
-Terminal Clique Size & \\
+Terminal Clique Size & 35\\
 $|V|_{largestBackbone}$ & 1271\\
 \hline
 \end{tabular}
@@ -535,6 +542,10 @@ Coverage & 0.996\\
 \end{tabular}
 }
 \includegraphics[width=12cm]{Report-bench3}
+
+\includegraphics[width=7.5cm, height=7.5cm]{bench3}
+
+\textit{The distribution of points and a backbone for benchmark 3}
 
 \end{center}
 
@@ -564,7 +575,7 @@ $Degree_{max}$ & 96\\
 $Degree_{del,max}$ & 40\\
 Number of Colors & 38\\
 Max Color Class Size & 2532\\
-Terminal Clique Size & \\
+Terminal Clique Size & 31\\
 $|V|_{largestBackbone}$ & 5040\\
 \hline
 \end{tabular}
@@ -589,6 +600,8 @@ Coverage & 0.998\\
 \end{tabular}
 }
 \includegraphics[width=12cm]{Report-bench4}
+
+\textit{The distribution of points and a backbone for benchmark 4 is not shown as a graph with so many points is not readily visualized. }
 
 \end{center}
 
@@ -619,7 +632,7 @@ $Degree_{max}$ & 179\\
 $Degree_{del,max}$ & 72\\
 Number of Colors & 66\\
 Max Color Class Size & 1374\\
-Terminal Clique Size & \\
+Terminal Clique Size & 61\\
 $|V|_{largestBackbone}$ & 2734\\
 \hline
 \end{tabular}
@@ -644,6 +657,8 @@ Coverage & 0.999\\
 \end{tabular}
 }
 \includegraphics[width=12cm]{Report-bench5}
+
+\textit{The distribution of points and a backbone for benchmark 5 is not shown as a graph with so many points is not readily visualized. }
 
 \end{center}
 
@@ -673,7 +688,7 @@ $Degree_{max}$ & 89\\
 $Degree_{del,max}$ & 37\\
 Number of Colors & 36\\
 Max Color Class Size & 164\\
-Terminal Clique Size & \\
+Terminal Clique Size & 35\\
 $|V|_{largestBackbone}$ & 328\\
 \hline
 \end{tabular}
@@ -698,6 +713,10 @@ Coverage & 0.998\\
 \end{tabular}
 }
 \includegraphics[width=12cm]{Report-bench6}
+
+\includegraphics[width=7.5cm, height=7.5cm]{bench6}
+
+\textit{The distribution of points and a backbone for benchmark 6}
 
 \end{center}
 
@@ -727,7 +746,7 @@ $Degree_{max}$ & 160\\
 $Degree_{del,max}$ & 67\\
 Number of Colors & 59\\
 Max Color Class Size & 89\\
-Terminal Clique Size & \\
+Terminal Clique Size & 57\\
 $|V|_{largestBackbone}$ & 176\\
 \hline
 \end{tabular}
@@ -752,7 +771,11 @@ Coverage & 0.986\\
 \end{tabular}
 }
 \includegraphics[width=12cm]{Report-bench7}
+ 
+ \includegraphics[width=7.5cm, height=7.5cm]{bench7}
 
+\textit{The distribution of points and a backbone for benchmark 7}
+ 
 \end{center}
 
 \subsection{Benchmark 8}
@@ -781,7 +804,7 @@ $Degree_{max}$ & 87\\
 $Degree_{del,max}$ & 39\\
 Number of Colors & 36\\
 Max Color Class Size & 161\\
-Terminal Clique Size & \\
+Terminal Clique Size & 33\\
 $|V|_{largestBackbone}$ & 321\\
 Faces on Largest Backbone & 101 \\
 \hline
@@ -809,6 +832,10 @@ Faces & 112\\
 \end{tabular}
 }
 \includegraphics[width=12cm]{Report-bench8}
+
+\includegraphics[width=7.25cm, height=7.25cm]{bench8}
+
+\textit{The distribution of points and a backbone for benchmark 8}
 
 \end{center}
 
@@ -838,7 +865,7 @@ $Degree_{max}$ & 152\\
 $Degree_{del,max}$ & 65\\
 Number of Colors & 59\\
 Max Color Class Size & 383\\
-Terminal Clique Size & \\
+Terminal Clique Size & 58\\
 $|V|_{largestBackbone}$ & 762\\
 Faces on Largest Backbone &  189\\
 \hline
@@ -866,6 +893,10 @@ Faces & 176\\
 \end{tabular}
 }
 \includegraphics[width=12cm]{Report-bench9}
+
+\includegraphics[width=7.25cm, height=7.25cm]{bench9}
+
+\textit{The distribution of points and a backbone for benchmark 9}
 
 \end{center}
 
@@ -895,7 +926,7 @@ $Degree_{max}$ & 134\\
 $Degree_{del,max}$ & 60\\
 Number of Colors & 58\\
 Max Color Class Size & 1839\\
-Terminal Clique Size & \\
+Terminal Clique Size & 50\\
 $|V|_{largestBackbone}$ & 3758\\
 \hline
 \end{tabular}
@@ -923,21 +954,19 @@ Faces & 667\\
 }
 \includegraphics[width=12cm]{Report-bench10}
 
+\textit{The distribution of points and a backbone for benchmark 10 is not shown as a graph with so many points is not readily visualized. }
+
 \end{center}
 
 
 \subsection{Real-Time Graphics Interface}
-The graphs generated in this project can be visualized interactivelly using Processing. Included below are two screenshots of a sphere distribution. While rendering the sphere, one can drag the sphere around to see it from different perspectives, and press number keys to switch between view modes (available options include seeing the whole graph, seeing individual backbones, or seeing individual colors).
+The graphs generated in this project can be visualized interactivelly using Processing. While rendering the sphere, one can drag the sphere around to see it from different perspectives, and press number keys to switch between view modes (available options include seeing the whole graph, seeing individual backbones, or seeing individual colors).
 
 The code for the entire project, including the real-time visualization, is available at:
 \begin{center}
 \textit{https://www.github.com/ianjjohnson/SensorNetwork}
 \end{center}
 
-\begin{center}
-\includegraphics[width=8cm]{sphere0}
-\includegraphics[width=8 cm]{sphere1}
-\end{center}
 
 %EACH:
 % - plot original degree and deleted degree of each node

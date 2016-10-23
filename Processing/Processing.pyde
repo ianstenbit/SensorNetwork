@@ -133,6 +133,7 @@ def smallestLastOrdering(edges, alg="Brute"):
         buckets[len(edges[i])].append(i)
 
     j = len(edges)
+    foundclique = False
 
     while(j > 0):
 
@@ -140,6 +141,10 @@ def smallestLastOrdering(edges, alg="Brute"):
 
         while(i < maxdegree and len(buckets[i]) == 0):
             i = i+1
+            
+        if(not foundclique and len(buckets[i]) == j):
+            foundclique = True
+            print("Terminal Clique Size: ", i)
 
 
         ivj = buckets[i].pop()
@@ -362,10 +367,10 @@ def getBackboneEdges(edges, backbones):
     return ls    
 
 
-NUM_NODES = 1000
-AVG_DEGREE = 16
+NUM_NODES = 64000
+AVG_DEGREE = 128
 DISTRIBUTION = "Sphere" #Disk, Square, or Sphere
-RENDER_MODE = 1
+RENDER_MODE = 4
 
 
 radius = calculateRadius(NUM_NODES, AVG_DEGREE, DISTRIBUTION)
@@ -469,7 +474,7 @@ def drawGraphHelper(p, e, c):
     global rot
     global NEED_2D_RENDER_UPDATE
     
-    if(DISTRIBUTION == "Sphere" and len(points) <= 4000):
+    if(DISTRIBUTION == "Sphere"):
         rot = (rot[0]+PI/1000, rot[1], rot[2])
         drawGraph3D(p, e, c)
     elif(DISTRIBUTION != "Sphere" and NEED_2D_RENDER_UPDATE):
