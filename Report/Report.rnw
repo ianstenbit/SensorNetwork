@@ -136,8 +136,11 @@ The process of random point selection is slightly different for each of the dist
 \subsubsection{Edge Discovery}
 Edge discovery is performed using a bucket strategy, so that the algorithm can run in linear time (this is discussed in more detail in the upcoming \textit{Algorithm Engineering} section). In order to detect edges, the points are partitioned into a matrix of $N^2$ buckets, where $N=\frac{1}{R}$, such that the indeces of the bucket in which a point resides is an approximation of the actual location of the point in 2 dimensions. This is performed using a linear pass through the points in the points list. After that, every point in every bucket is compared to every other point in the bucket, as well as all points in adjacent buckets. This guarantees that all edges are found without directly comparing every node to every other node, which is an $O(N^2)$ algorithm.
 
+\subsubsection{Smallest-Last Vertex Ordering}
+The graph coloring algorithm utilizes a smallest-last vertex ordering to perform coloring in linear time. The smallest-last vertex ordering is performed in linear time per the algorithm described in Matula, D.W, Beck, L.L 1983 \textsuperscript{[6]}. The algorithm creates buckets based on vertex degree and, in a linear pass through the vertices, puts each vertex in the bucket which represents the degree of the vertex. Subsequently, the first element from the smallest bucket is extracted until all buckets are empty. Each time a vertex is removed, all vertices adjacent to that vertex are moved from their current buckets to the bucket with a degree one lower than their previous degree. The terminal clique is found when all remaining vertices are in the same bucket, and the number of vertices in the bucket is equal to the degree of the bucket plus one.
+
 \subsubsection{Graph Coloring}
-The graph coloring algorithm utilizes a smallest-last vertex ordering to perform coloring in linear time. The smallest-last vertex ordering is performed in linear time per the algorithm described in Matula, D.W, Beck, L.L 1983 \textsuperscript{[6]}. Once the smallest-last vertex ordering has been computed, the coloring is done by iterating through the smalles-last vertex ordering and, at each point, assigning the first available color to the point on the graph by looking at the colors of points adjacent to the point in question. This is a non-heuristic graph coloring algorithm and is guaranteed to find a minimal number of colors on the graph \textsuperscript{[6]}. Verification of the linear-time claim for this algorithm can be found in the upcoming \textit{Algorithm Engineering} section.
+Once the smallest-last vertex ordering has been computed, the coloring is done by iterating through the smalles-last vertex ordering and, at each point, assigning the first available color to the point on the graph by looking at the colors of points adjacent to the point in question. This is a non-heuristic graph coloring algorithm and is guaranteed to find a minimal number of colors on the graph \textsuperscript{[6]}. Verification of the linear-time claim for this algorithm can be found in the upcoming \textit{Algorithm Engineering} section.
 
 \subsubsection{Backbone Selection}
 Once the graph coloring has been performed, the points in the graph are partitioned into $k$ disjoint sets of point, where $k$ is the number of colors, and the items in each set are all of the same color. The 4 sets with the highest cardinality are selected, and the 6 possible combinations of those 4 colors are identified as possible backbones. For each of those backbones, the coverage is calculated by identifying the number of vertices in the major component of the resulting graph when only the edges which include an item from the backbone as a vertex are included in the graph. Then, the top 3 backbones based on coverage are selected and used as the backbones. 
@@ -384,6 +387,10 @@ legend('bottom', c("Original", "Deleted") , bty='n',lwd=4, lty=20, col=rainbow(2
 source("data/col1.txt")
 barplot(cols, main="Number of Vertices in each Color", xlab="Color", ylab="Number of Vertices")
 @
+<<bench1c, fig=TRUE, echo=FALSE, eps=FALSE, width=4, height=4,include=FALSE>>= 
+hist(lens, main="Histogram of Vertex Degree", xlab="Degree", ylab="Number of Vertices")
+@
+
 
 \begin{center}
 \raisebox{1.1\height}{
@@ -426,9 +433,10 @@ Coverage & 0.987\\
 }
 \includegraphics[width=12cm]{Report-bench1}
 
-\includegraphics[width=7.5cm, height=7.5cm]{bench1}
+\includegraphics[width=7cm, height=7cm]{bench1}
+\includegraphics[width=7cm, height=7cm]{report-bench1c}
 
-\textit{The distribution of points and a backbone for benchmark 1}
+\textit{The distribution of points/degrees and a backbone for benchmark 1}
 
 \end{center}
 
@@ -441,6 +449,9 @@ legend('bottom', c("Original", "Deleted") , bty='n',lwd=4, lty=20, col=rainbow(2
 <<bench2b, fig=TRUE, echo=FALSE, eps=FALSE, width=4, height=4,include=FALSE>>= 
 source("data/col2.txt")
 barplot(cols, main="Number of Vertices in each Color", xlab="Color", ylab="Number of Vertices")
+@
+<<bench2c, fig=TRUE, echo=FALSE, eps=FALSE, width=4, height=4,include=FALSE>>= 
+hist(lens, main="Histogram of Vertex Degree", xlab="Degree", ylab="Number of Vertices")
 @
 
 \begin{center}
@@ -484,9 +495,10 @@ Coverage & 1.00\\
 }
 \includegraphics[width=12cm]{Report-bench2}
 
-\includegraphics[width=7.5cm, height=7.5cm]{bench2}
+\includegraphics[width=7cm, height=7cm]{bench2}
+\includegraphics[width=7cm, height=7cm]{report-bench2c}
 
-\textit{The distribution of points and a backbone for benchmark 2}
+\textit{The distribution of points/degrees and a backbone for benchmark 2}
 
 \end{center}
 
@@ -500,6 +512,9 @@ legend('bottom', c("Original", "Deleted") , bty='n',lwd=4, lty=20, col=rainbow(2
 <<bench3b, fig=TRUE, echo=FALSE, eps=FALSE, width=4, height=4,include=FALSE>>= 
 source("data/col3.txt")
 barplot(cols, main="Number of Vertices in each Color", xlab="Color", ylab="Number of Vertices")
+@
+<<bench3c, fig=TRUE, echo=FALSE, eps=FALSE, width=4, height=4,include=FALSE>>= 
+hist(lens, main="Histogram of Vertex Degree", xlab="Degree", ylab="Number of Vertices")
 @
 
 \begin{center}
@@ -543,7 +558,8 @@ Coverage & 0.996\\
 }
 \includegraphics[width=12cm]{Report-bench3}
 
-\includegraphics[width=7.5cm, height=7.5cm]{bench3}
+\includegraphics[width=7cm, height=7cm]{bench3}
+\includegraphics[width=7cm, height=7cm]{report-bench3c}
 
 \textit{The distribution of points and a backbone for benchmark 3}
 
@@ -558,6 +574,9 @@ legend('bottom', c("Original", "Deleted") , bty='n',lwd=4, lty=20, col=rainbow(2
 <<bench4b, fig=TRUE, echo=FALSE, eps=FALSE, width=4, height=4,include=FALSE>>= 
 source("data/col4.txt")
 barplot(cols, main="Number of Vertices in each Color", xlab="Color", ylab="Number of Vertices")
+@
+<<bench4c, fig=TRUE, echo=FALSE, eps=FALSE, width=4, height=4,include=FALSE>>= 
+hist(lens, main="Histogram of Vertex Degree", xlab="Degree", ylab="Number of Vertices")
 @
 
 \begin{center}
@@ -601,6 +620,8 @@ Coverage & 0.998\\
 }
 \includegraphics[width=12cm]{Report-bench4}
 
+\includegraphics[width=7cm, height=7cm]{report-bench4c}
+
 \textit{The distribution of points and a backbone for benchmark 4 is not shown as a graph with so many points is not readily visualized. }
 
 \end{center}
@@ -615,6 +636,9 @@ legend('bottom', c("Original", "Deleted") , bty='n',lwd=4, lty=20, col=rainbow(2
 <<bench5b, fig=TRUE, echo=FALSE, eps=FALSE, width=4, height=4,include=FALSE>>= 
 source("data/col5.txt")
 barplot(cols, main="Number of Vertices in each Color", xlab="Color", ylab="Number of Vertices")
+@
+<<bench5c, fig=TRUE, echo=FALSE, eps=FALSE, width=4, height=4,include=FALSE>>= 
+hist(lens, main="Histogram of Vertex Degree", xlab="Degree", ylab="Number of Vertices")
 @
 
 \begin{center}
@@ -658,6 +682,8 @@ Coverage & 0.999\\
 }
 \includegraphics[width=12cm]{Report-bench5}
 
+\includegraphics[width=7cm, height=7cm]{report-bench5c}
+
 \textit{The distribution of points and a backbone for benchmark 5 is not shown as a graph with so many points is not readily visualized. }
 
 \end{center}
@@ -671,6 +697,9 @@ legend('bottom', c("Original", "Deleted") , bty='n',lwd=4, lty=20, col=rainbow(2
 <<bench6b, fig=TRUE, echo=FALSE, eps=FALSE, width=4, height=4,include=FALSE>>= 
 source("data/col6.txt")
 barplot(cols, main="Number of Vertices in each Color", xlab="Color", ylab="Number of Vertices")
+@
+<<bench6c, fig=TRUE, echo=FALSE, eps=FALSE, width=4, height=4,include=FALSE>>= 
+hist(lens, main="Histogram of Vertex Degree", xlab="Degree", ylab="Number of Vertices")
 @
 
 \begin{center}
@@ -714,9 +743,10 @@ Coverage & 0.998\\
 }
 \includegraphics[width=12cm]{Report-bench6}
 
-\includegraphics[width=7.5cm, height=7.5cm]{bench6}
+\includegraphics[width=7cm, height=7cm]{bench6}
+\includegraphics[width=7cm, height=7cm]{report-bench6c}
 
-\textit{The distribution of points and a backbone for benchmark 6}
+\textit{The distribution of points/degrees and a backbone for benchmark 6}
 
 \end{center}
 
@@ -729,6 +759,9 @@ legend('bottom', c("Original", "Deleted") , bty='n',lwd=4, lty=20, col=rainbow(2
 <<bench7b, fig=TRUE, echo=FALSE, eps=FALSE, width=4, height=4,include=FALSE>>= 
 source("data/col7.txt")
 barplot(cols, main="Number of Vertices in each Color", xlab="Color", ylab="Number of Vertices")
+@
+<<bench7c, fig=TRUE, echo=FALSE, eps=FALSE, width=4, height=4,include=FALSE>>= 
+hist(lens, main="Histogram of Vertex Degree", xlab="Degree", ylab="Number of Vertices")
 @
 
 \begin{center}
@@ -772,7 +805,8 @@ Coverage & 0.986\\
 }
 \includegraphics[width=12cm]{Report-bench7}
  
- \includegraphics[width=7.5cm, height=7.5cm]{bench7}
+\includegraphics[width=7cm, height=7cm]{bench7}
+\includegraphics[width=7cm, height=7cm]{report-bench7c}
 
 \textit{The distribution of points and a backbone for benchmark 7}
  
@@ -787,6 +821,9 @@ legend('bottom', c("Original", "Deleted") , bty='n',lwd=4, lty=20, col=rainbow(2
 <<bench8b, fig=TRUE, echo=FALSE, eps=FALSE, width=4, height=4,include=FALSE>>= 
 source("data/col8.txt")
 barplot(cols, main="Number of Vertices in each Color", xlab="Color", ylab="Number of Vertices")
+@
+<<bench8c, fig=TRUE, echo=FALSE, eps=FALSE, width=4, height=4,include=FALSE>>= 
+hist(lens, main="Histogram of Vertex Degree", xlab="Degree", ylab="Number of Vertices")
 @
 
 \begin{center}
@@ -833,9 +870,10 @@ Faces & 112\\
 }
 \includegraphics[width=12cm]{Report-bench8}
 
-\includegraphics[width=7.25cm, height=7.25cm]{bench8}
+\includegraphics[width=7cm, height=7cm]{bench8}
+\includegraphics[width=7cm, height=7cm]{report-bench8c}
 
-\textit{The distribution of points and a backbone for benchmark 8}
+\textit{The distribution of points/degrees and a backbone for benchmark 8}
 
 \end{center}
 
@@ -848,6 +886,9 @@ legend('bottom', c("Original", "Deleted") , bty='n',lwd=4, lty=20, col=rainbow(2
 <<bench9b, fig=TRUE, echo=FALSE, eps=FALSE, width=4, height=4,include=FALSE>>= 
 source("data/col9.txt")
 barplot(cols, main="Number of Vertices in each Color", xlab="Color", ylab="Number of Vertices")
+@
+<<bench9c, fig=TRUE, echo=FALSE, eps=FALSE, width=4, height=4,include=FALSE>>= 
+hist(lens, main="Histogram of Vertex Degree", xlab="Degree", ylab="Number of Vertices")
 @
 
 \begin{center}
@@ -894,9 +935,10 @@ Faces & 176\\
 }
 \includegraphics[width=12cm]{Report-bench9}
 
-\includegraphics[width=7.25cm, height=7.25cm]{bench9}
+\includegraphics[width=7cm, height=7cm]{bench9}
+\includegraphics[width=7cm, height=7cm]{report-bench9c}
 
-\textit{The distribution of points and a backbone for benchmark 9}
+\textit{The distribution of points/degrees and a backbone for benchmark 9}
 
 \end{center}
 
@@ -909,6 +951,9 @@ legend('bottom', c("Original", "Deleted") , bty='n',lwd=4, lty=20, col=rainbow(2
 <<bench10b, fig=TRUE, echo=FALSE, eps=FALSE, width=4, height=4,include=FALSE>>= 
 source("data/col10.txt")
 barplot(cols, main="Number of Vertices in each Color", xlab="Color", ylab="Number of Vertices")
+@
+<<bench10c, fig=TRUE, echo=FALSE, eps=FALSE, width=4, height=4,include=FALSE>>= 
+hist(lens, main="Histogram of Vertex Degree", xlab="Degree", ylab="Number of Vertices")
 @
 
 \begin{center}
@@ -953,6 +998,8 @@ Faces & 667\\
 \end{tabular}
 }
 \includegraphics[width=12cm]{Report-bench10}
+
+\includegraphics[width=7cm, height=7cm]{report-bench10c}
 
 \textit{The distribution of points and a backbone for benchmark 10 is not shown as a graph with so many points is not readily visualized. }
 
