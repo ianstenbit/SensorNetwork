@@ -367,8 +367,8 @@ def getBackboneEdges(edges, backbones):
     return ls    
 
 
-NUM_NODES = 64000
-AVG_DEGREE = 128
+NUM_NODES = 2000
+AVG_DEGREE = 32
 DISTRIBUTION = "Sphere" #Disk, Square, or Sphere
 RENDER_MODE = 4
 
@@ -411,21 +411,6 @@ topColors = colorLists[0:4]
 
 print("Generated Color Lists")
 
-lens = [len(x) for x in edges]
-file = open('tmp.txt', 'w')
-file.write("lens <- c(")
-file.write(str(lens).strip('[]'))
-file.write(")\ndelLens <- c(")
-file.write(str(degreesWhenDeleted).strip('[]'))
-file.write(")\n")
-file.close()
-
-file = open('col.txt', 'w')
-file.write("cols <- c(")
-file.write(str([len(x) for x in colorLists]).strip('[]'))
-file.write(")")
-file.close()
-
 backbones = generateBackbones(topColors)
 
 print("Generated Backbones")
@@ -434,40 +419,31 @@ coverages = coverageOfBackbones(points, edges, backbones)
 
 print("Calculated Backbone Coverages")
 
-backboneEdges = getBackboneEdges(edges, backbones)
-print("Got Edges")
-backboneGiantComponents = [giantComponent(backbones[i], backboneEdges[i]) for i in range(len(backbones))]
-
-
-print("Found Giant Components in Top Backbones")
-
-#print( sorted(range(len(backboneGiantComponents)), key=lambda i: backboneGiantComponents[i])[-2:])
-topBackbones = [backbones[i] for i in sorted(range(len(backboneGiantComponents)), key=lambda i: backboneGiantComponents[i])[-2:]]
+topBackbones = [backbones[i] for i in sorted(range(len(coverages)), key=lambda i: coverages[i])[-2:]]
 
 print("Found Top-2 Backbones")
 
 topCoverages = coverageOfBackbones(points, edges, topBackbones)
-#print("Coverages of Top Backbones:", topCoverages)
 
 print("Percent Coverage:", [(x+0.0)/NUM_NODES for x in topCoverages])
 
 backboneEdges = getBackboneEdges(edges, topBackbones)
 
-print("Number of Edges:", sum(lens)/2)
-print("Min Degree:", min(lens))
-print("Max Degree:", max(lens))
-print("Max Degree when deleted:", max(degreesWhenDeleted))
-print("Max Color:", max([len(x) for x in colorLists]))
-#print(lens)
-#print(degreesWhenDeleted)
-print("V_LargestBackbone:", len(topBackbones[0]))
-print("V_2ndLargestBackbone:", len(topBackbones[1]))
+# print("Number of Edges:", sum(lens)/2)
+# print("Min Degree:", min(lens))
+# print("Max Degree:", max(lens))
+# print("Max Degree when deleted:", max(degreesWhenDeleted))
+# print("Max Color:", max([len(x) for x in colorLists]))
+# #print(lens)
+# #print(degreesWhenDeleted)
+# print("V_LargestBackbone:", len(topBackbones[0]))
+# print("V_2ndLargestBackbone:", len(topBackbones[1]))
 
-print("Backbone Edge Counts:", [sum([len(x) for x in b])/2 for b in backboneEdges])
+# print("Backbone Edge Counts:", [sum([len(x) for x in b])/2 for b in backboneEdges])
 
 
-if DISTRIBUTION == "Sphere":
-    print("Number of Faces on Backbones:", [numFacesOnBackbone(topBackbones[i], backboneEdges[i]) for i in range(len(topBackbones))])
+# if DISTRIBUTION == "Sphere":
+#     print("Number of Faces on Backbones:", [numFacesOnBackbone(topBackbones[i], backboneEdges[i]) for i in range(len(topBackbones))])
 
 def drawGraphHelper(p, e, c):
     
